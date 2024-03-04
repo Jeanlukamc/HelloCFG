@@ -15,11 +15,11 @@ MORSE_CODE_DICT = {'.-': 'A', '-...': 'B', '-.-.': 'C', '-..': 'D', '.': 'E',
 
 def english_equivalent( morse_code ):
     """Gives the equivalent """
-    words = morse_code.split( '   ' ) #3 spaces means a separation between words
-    message = " "
+    words = morse_code.split( '/' ) #/ represents a separation between words
+    message = ""
 
     for word in words:
-        letters = word.split( ' ' ) #1 space means separation between letters
+        letters = word.split( '#' ) #1 space means separation between letters
         for letter in letters:
             if letter in MORSE_CODE_DICT:
                 message += MORSE_CODE_DICT[ letter ]
@@ -32,7 +32,7 @@ def english_equivalent( morse_code ):
 def main( ):
     """Controls previous functions"""
     morse = input ( "Write a sentence you would like to be translated: " )
-    #morse = ".... . .-.. .-.. --- / .-- --- .-. .-.. -.."
+    #morse = "....#.#.-..#.-..#---/.--#---#.-.#.-..#-.."
     english = english_equivalent( morse )
     print ( english )
 
