@@ -3,6 +3,7 @@
 #25/03/2024
 
 from nltk import CFG
+from pprint import pprint
 
 
 def valid_CFG( grammar ):
@@ -28,3 +29,29 @@ def conversion_to_CNF( grammar ):
     except Exception as e:
         print( f"An unexpected error occurred: {e}" )
         return ( False )
+
+
+def dictionary_creation( grammar_rules ):
+    """Creates a dictionary for the """
+    rule_dict = {}
+
+    for production in grammar_rules:
+        left_hand_side = str( production.lhs( ) )
+
+        symbols = production.rhs( )
+        symbol_strings = []
+
+        for symbol in symbols:
+            symbol_strings.append( str( symbol ) )
+
+        right_hand_side = tuple( symbol_strings )
+
+        if left_hand_side in rule_dict:
+            rule_dict[ left_hand_side ].append( right_hand_side )
+        else:
+            rule_dict[left_hand_side] = [ right_hand_side ]
+    #pprint( rule_dict )
+    return ( rule_dict )
+
+def cyk_parser( rule_dictionary, string ):
+    """Does the CYK algorithm based on a dictionary of rules"""

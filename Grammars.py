@@ -27,3 +27,21 @@ invalid_CNF_grammar = CFG.fromstring(
         NUMBER -> '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
         SPACE -> ' ' | ' ' B
 """)
+
+
+basic_grammar = CFG.fromstring(
+    """
+        S -> NP VP
+        PP -> P NP
+        NP -> Det N | NP PP
+        VP -> V NP | VP PP VP
+        Det -> 'a' | 'the'
+        N -> 'dog' | 'cat'
+        V -> 'chased' | 'sat'
+        P -> 'on' | 'in'
+""")
+
+#c = basic_grammar.chomsky_normal_form( ).productions( )
+#print( c )
+#for production in c:
+#    print( f"Left Hand Side: {production.lhs( )} | Right Hand Side: {production.rhs( )}" )
