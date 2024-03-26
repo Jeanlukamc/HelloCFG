@@ -14,9 +14,14 @@ def test_valid_CFG( grammar, result):
     for item in grammar.productions( ):
         print( item )
     print( "Grammar is Accepted | PASSED")
+    print( "----------------------------------------------------------------------------------------------------\n" )
 
 @pytest.mark.parametrize( "grammar, test_num, result", [ ( xml, 1, True ), (invalid_CNF_grammar, 2, False) ] )
 def test_CNF_conversion( grammar, test_num, result ):
     """Tests whether a CFG can be turned into a CNF"""
     assert( conversion_to_CNF( grammar ) == result )
+    if ( result ):
+        for item in grammar.productions( ):
+            print( item )
     print( f"Languege #{test_num} Result: {result} | PASSED")
+    print( "----------------------------------------------------------------------------------------------------\n" )
