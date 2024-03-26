@@ -4,7 +4,7 @@
 
 from nltk import CFG
 
-grammar = CFG.fromstring(
+xml = CFG.fromstring(
     """
         SOURCE -> CONTEXT | LESS_THAN CONTEXT GREATER_THAN SOURCE SLASH_LESS_THAN CONTEXT GREATER_THAN | LESS_THAN CONTEXT GREATER_THAN SLASH_LESS_THAN CONTEXT GREATER_THAN
         LESS_THAN -> "<"
@@ -18,7 +18,7 @@ grammar = CFG.fromstring(
 
 #for item in grammar.productions( ):
 #    print( item )
-c = grammar.chomsky_normal_form() 
+c = xml.chomsky_normal_form() 
 
 for item in c.productions( ):
     print( item )
