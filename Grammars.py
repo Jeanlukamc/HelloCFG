@@ -6,7 +6,7 @@ from nltk import CFG
 
 xml = CFG.fromstring(
     """
-        SOURCE -> CONTEXT | LESS_THAN CONTEXT GREATER_THAN SOURCE SLASH_LESS_THAN CONTEXT GREATER_THAN | LESS_THAN CONTEXT GREATER_THAN SLASH_LESS_THAN CONTEXT GREATER_THAN
+        S -> CONTEXT | LESS_THAN CONTEXT GREATER_THAN S SLASH_LESS_THAN CONTEXT GREATER_THAN | LESS_THAN CONTEXT GREATER_THAN SLASH_LESS_THAN CONTEXT GREATER_THAN
         LESS_THAN -> "<"
         GREATER_THAN -> ">"
         SLASH_LESS_THAN -> "</"
@@ -18,7 +18,7 @@ xml = CFG.fromstring(
 
 invalid_CNF_grammar = CFG.fromstring(
     """
-        SOURCE -> CONTEXT | LESS_THAN CONTEXT GREATER_THAN SOURCE SLASH_LESS_THAN CONTEXT GREATER_THAN | LESS_THAN CONTEXT GREATER_THAN SLASH_LESS_THAN CONTEXT GREATER_THAN
+        S -> CONTEXT | LESS_THAN CONTEXT GREATER_THAN S SLASH_LESS_THAN CONTEXT GREATER_THAN | LESS_THAN CONTEXT GREATER_THAN SLASH_LESS_THAN CONTEXT GREATER_THAN
         LESS_THAN -> "<"
         GREATER_THAN -> ">"
         SLASH_LESS_THAN -> "</"
@@ -32,13 +32,11 @@ invalid_CNF_grammar = CFG.fromstring(
 basic_grammar = CFG.fromstring(
     """
         S -> NP VP
-        PP -> P NP
-        NP -> Det N | NP PP
-        VP -> V NP | VP PP VP
-        Det -> 'a' | 'the'
+        NP -> Det N
+        VP -> V NP
+        Det -> 'the' | 'a'
         N -> 'dog' | 'cat'
-        V -> 'chased' | 'sat'
-        P -> 'on' | 'in'
+        V -> 'chases' | 'sees'
 """)
 
 #c = basic_grammar.chomsky_normal_form( ).productions( )

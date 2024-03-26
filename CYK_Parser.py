@@ -4,6 +4,7 @@
 
 from nltk import CFG
 from pprint import pprint
+from Grammars import xml, basic_grammar
 
 
 def valid_CFG( grammar ):
@@ -32,26 +33,57 @@ def conversion_to_CNF( grammar ):
 
 
 def dictionary_creation( grammar_rules ):
-    """Creates a dictionary for the """
+    """Creates a dictionary for the CYK algorithm to process"""
     rule_dict = {}
 
     for production in grammar_rules:
         left_hand_side = str( production.lhs( ) )
 
-        symbols = production.rhs( )
-        symbol_strings = []
+        right_hand_side = tuple(str(symbol) for symbol in production.rhs())
 
-        for symbol in symbols:
-            symbol_strings.append( str( symbol ) )
-
-        right_hand_side = tuple( symbol_strings )
-
-        if left_hand_side in rule_dict:
-            rule_dict[ left_hand_side ].append( right_hand_side )
-        else:
-            rule_dict[left_hand_side] = [ right_hand_side ]
+        if left_hand_side not in rule_dict:
+            rule_dict[left_hand_side] = set()
+        
+        # Add the RHS as a tuple of strings to the set for the corresponding LHS
+        rule_dict[left_hand_side].add(right_hand_side)
     #pprint( rule_dict )
+            
+    #for production in grammar_rules:
+    #    print( f"LHS: {production.lhs( )} | RHS: {production.rhs( )}")
     return ( rule_dict )
 
-def cyk_parser( rule_dictionary, string ):
+def cyk_parser( rule_dictionary, words ):
     """Does the CYK algorithm based on a dictionary of rules"""
+
+    word_count = len( words )
+
+    table = [ [ set( ) for _ in range( word_count ) ] for _ in range( word_count ) ]
+
+    for i, word in enumerate( words ):
+        for left_hand_side, right_hand_side in rule_dictionary.items( ):
+            if (word,) in right_hand_side:
+                table[ i ][ i ].add( left_hand_side )
+    
+    for length in range( 2, word_count + 1 ):
+        for i in range( word_count - length + 1 ):
+            for j in range( i + 1, i + length ):
+                for k in range( i, j ):
+                    for left_hand_side, rhs_list in rule_dictionary.items( ):
+                        for right_hand_side in rhs_list:
+                            if len( right_hand_side ) == 2:
+                                B, C = right_hand_side
+                                if ( B in table[ i ][ k ] and C in table[ k + 1 ][ i + length - 1] ):
+                                    table[ i ][ i + length - 1 ].add( left_hand_side )
+    
+    return( 'S' in table[ 0 ][ word_count - 1] )
+
+my_dict = dictionary_creation( basic_grammar.chomsky_normal_form( ).productions( ) )
+#pprint(my_dict)
+
+string1 = "the dog sees a cat"
+string2 = "the cat chases the dog"
+string3 = "dog chases cat"
+string4 = "chases the dog the cat"
+words = string4.split()
+
+print( cyk_parser(my_dict, words ) )
