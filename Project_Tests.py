@@ -51,7 +51,8 @@ def test_CYK_parser_per_word( grammar, string, result ):
                                                       ( xml, "<!-- welcome to the jungle   -->", "Comment Test", True),
                                                       ( xml, "<b><!-- test comment --><d> content </d></b>", "Normal Tag and Comment Test", True),
                                                       ( xml, "<123> text </123>", "Numbers as Tag Names Test", False),
-                                                      ( xml, "< space > text </ space >", "Spaces Between Tag Names Test", False)
+                                                      ( xml, "< space > text </ space >", "Spaces Between Tag Names Test", False),
+                                                      ( xml, "<b>  comparison &lt;&gt;&amp;&apos;&quot; </b>", "Use of Entity References within content", True)
                                                      ] )
 def test_CYK_XML( grammar, string, test_type, result ):
     rule_dict = dictionary_creation( grammar.chomsky_normal_form( ).productions( ) )

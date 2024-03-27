@@ -15,8 +15,26 @@ xml = CFG.fromstring(
         SLASH -> "/"
         EXCLAMATION -> '!'
         DASH -> '-'
+        AND_SYMBOL -> '&'
+        SEMICOLON -> ';'
+        L_SYMBOL -> 'l'
+        T_SYMBOL -> 't'
+        A_SYMBOL -> 'a'
+        M_SYMBOL -> 'm'
+        P_SYMBOL -> 'p'
+        O_SYMBOL -> 'o'
+        S_SYMBOL -> 's'
+        Q_SYMBOL -> 'q'
+        U_SYMBOL -> 'u'
+        G_SYMBOL -> 'g'
         TAG -> LETTER TAG | LETTER
-        TEXT -> LETTER TEXT | SPACE TEXT | NUMBER TEXT | LETTER | SPACE | NUMBER
+        TEXT -> LETTER TEXT | SPACE TEXT | NUMBER TEXT | ENTITY TEXT | LETTER | SPACE | NUMBER | ENTITY
+        ENTITY -> LT_SEMICOLON | GT_SEMICOLON | AMPERSAND | APOSTROPHE | QUOTATION_MARK
+        LT_SEMICOLON -> AND_SYMBOL L_SYMBOL T_SYMBOL SEMICOLON
+        GT_SEMICOLON -> AND_SYMBOL G_SYMBOL T_SYMBOL SEMICOLON
+        AMPERSAND -> AND_SYMBOL A_SYMBOL M_SYMBOL P_SYMBOL SEMICOLON
+        APOSTROPHE -> AND_SYMBOL A_SYMBOL P_SYMBOL O_SYMBOL S_SYMBOL SEMICOLON
+        QUOTATION_MARK -> AND_SYMBOL Q_SYMBOL U_SYMBOL O_SYMBOL T_SYMBOL SEMICOLON
         LETTER -> 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z'
         NUMBER -> '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
         SPACE -> ' '
@@ -35,8 +53,26 @@ xml_backup = CFG.fromstring(
         SLASH -> "/"
         EXCLAMATION -> '!'
         DASH -> '-'
+        AND_SYMBOL -> '&'
+        SEMICOLON -> ';'
+        L_SYMBOL -> 'l'
+        T_SYMBOL -> 't'
+        A_SYMBOL -> 'a'
+        M_SYMBOL -> 'm'
+        P_SYMBOL -> 'p'
+        O_SYMBOL -> 'o'
+        S_SYMBOL -> 's'
+        Q_SYMBOL -> 'q'
+        U_SYMBOL -> 'u'
+        G_SYMBOL -> 'g'
         TAG -> LETTER TAG | LETTER
-        TEXT -> LETTER TEXT | SPACE TEXT | NUMBER TEXT | LETTER | SPACE | NUMBER
+        TEXT -> LETTER TEXT | SPACE TEXT | NUMBER TEXT | ENTITY TEXT | LETTER | SPACE | NUMBER | ENTITY
+        ENTITY -> LT_SEMICOLON | GT_SEMICOLON | AMPERSAND | APOSTROPHE | QUOTATION_MARK
+        LT_SEMICOLON -> AND_SYMBOL L_SYMBOL T_SYMBOL SEMICOLON
+        GT_SEMICOLON -> AND_SYMBOL G_SYMBOL T_SYMBOL SEMICOLON
+        AMPERSAND -> AND_SYMBOL A_SYMBOL M_SYMBOL P_SYMBOL SEMICOLON
+        APOSTROPHE -> AND_SYMBOL A_SYMBOL P_SYMBOL O_SYMBOL S_SYMBOL SEMICOLON
+        QUOTATION_MARK -> AND_SYMBOL Q_SYMBOL U_SYMBOL O_SYMBOL T_SYMBOL SEMICOLON
         LETTER -> 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z'
         NUMBER -> '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
         SPACE -> ' '
