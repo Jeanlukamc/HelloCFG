@@ -3,7 +3,6 @@
 #25/03/2024
 
 from nltk import CFG
-from pprint import pprint
 from Grammars import xml, basic_grammar, alphabet_numbers
 
 
@@ -46,47 +45,39 @@ def dictionary_creation( grammar_rules ):
         
         # Add the RHS as a tuple of strings to the set for the corresponding LHS
         rule_dict[left_hand_side].add(right_hand_side)
-    pprint( rule_dict )
-            
-    #for production in grammar_rules:
-    #    print( f"LHS: {production.lhs( )} | RHS: {production.rhs( )}")
     return ( rule_dict )
 
-def cyk_parser( rule_dictionary, words ):
+def cyk_parser( rule_dictionary, string ):
     """Does the CYK algorithm based on a dictionary of rules"""
 
-    word_count = len( words )
+    letter_count = len( string )
 
-    table = [ [ set( ) for _ in range( word_count ) ] for _ in range( word_count ) ]
+    #Create the table based on the size of symbols/words we're going to use
+    table = [ [ set( ) for _ in range( letter_count ) ] for _ in range( letter_count ) ]
 
-    for i, word in enumerate( words ):
+    #Fill the table 
+    for i, letter in enumerate( string ):
         for left_hand_side, right_hand_side in rule_dictionary.items( ):
-            if (word,) in right_hand_side:
+            #If the letter is part of the RHS, add the LHS to the corresponding cell in the table
+            if (letter,) in right_hand_side:
                 table[ i ][ i ].add( left_hand_side )
     
-    for length in range( 2, word_count + 1 ):
-        for i in range( word_count - length + 1 ):
+    #Fill the table with substrings/symbols by combining smaller substrings/other symbols that have been processed
+    for length in range( 2, letter_count + 1 ):
+        for i in range( letter_count - length + 1 ):
             for j in range( i + 1, i + length ):
+                #Trying to combine substrings/symbols
                 for k in range( i, j ):
+                    #Check production rules
                     for left_hand_side, rhs_list in rule_dictionary.items( ):
                         for right_hand_side in rhs_list:
+                            #Check for binary productions
                             if len( right_hand_side ) == 2:
                                 B, C = right_hand_side
+                                #If B can generate the first part of the substring and C can generate
+                                #the second part, then A (lhs) can generate the entire substring.
                                 if ( B in table[ i ][ k ] and C in table[ k + 1 ][ i + length - 1] ):
                                     table[ i ][ i + length - 1 ].add( left_hand_side )
     
-    return( 'S' in table[ 0 ][ word_count - 1] )
-
-my_dict = dictionary_creation( xml.chomsky_normal_form( ).productions( ) )
-#pprint(my_dict)
-
-string1 = "the dog sees a cat"
-string2 = "the cat chases the dog"
-string3 = "dog chases cat"
-string4 = "chases the dog the cat"
-words = string1.split()
-
-letters = list( "<b><d> hello world</bbb></b>" )
-
-
-print( cyk_parser(my_dict, letters ) )
+    #Return Tre or False depending if 'S' is in the top-right cell of the table
+    return( 'S' in table[ 0 ][ letter_count - 1] )

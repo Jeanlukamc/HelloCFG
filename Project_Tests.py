@@ -28,32 +28,41 @@ def test_CNF_conversion( grammar, test_num, result ):
     print( "----------------------------------------------------------------------------------------------------\n" )
 
 
-@pytest.mark.parametrize( "grammar, strings, test_num, results", [( basic_grammar,
-                                                                [
-                                                                    "the cat chases the dog",
-                                                                    "a dog sees the cat",
-                                                                    "the dog chases the dog",
-                                                                    "the cat sleeps the dog",
-                                                                    "dog chases cat",
-                                                                    "the dog on in the park",
-                                                                    "chases the dog the cat"
-                                                                ],
-                                                                1,
-                                                                [ True,
-                                                                  True,
-                                                                  True,
-                                                                  False,
-                                                                  False,
-                                                                  False,
-                                                                  False
-                                                                ] ) ])
-def test_CYK_parser( grammar, strings, test_num, results ):
+@pytest.mark.parametrize( "grammar, string, result", [  ( basic_grammar, "the cat chases the dog", True ),
+                                                                    ( basic_grammar, "a dog sees the cat", True ),
+                                                                    ( basic_grammar, "the dog chases the dog", True ),
+                                                                    ( basic_grammar, "the cat sleeps the dog", False ),
+                                                                    ( basic_grammar, "dog chases cat", False ),
+                                                                    ( basic_grammar, "the dog on in the park", False ),
+                                                                    ( basic_grammar, "chases the dog the cat", False )
+                                                                ] )
+def test_CYK_parser_per_word( grammar, string, result ):
     """Tests the CYK parser for string validity"""
     rule_dict = dictionary_creation( grammar.chomsky_normal_form( ).productions( ) )
 
-    for string in range( 0, len( strings )):
-        words = strings[ string ].split( )
-        assert ( cyk_parser( rule_dict, words ) == results[ string ] )
-        print( f"Test #3 ( CYK PARSING ) | Languege #{test_num} Result: {results[ string ]} | PASSED")
-        print( "----------------------------------------------------------------------------------------------------\n" )
+    words = string.split( )
 
+    assert ( cyk_parser( rule_dict, words ) == result )
+    print( f"Test #3 ( CYK PARSING PER WORD ) | String: {string} | Result: {result} | PASSED")
+    print( "----------------------------------------------------------------------------------------------------\n" )
+
+
+
+#Generate the dictionary once so the process doesn't need to be repeated
+cnf_xml_dict = dictionary_creation( xml.chomsky_normal_form( ).productions( ) )
+@pytest.mark.parametrize( "dictionary, string, test_type, result", [( cnf_xml_dict, "<CustomTag> Testing Letters and 12345 </CustomTag>", "Normal Tag Test", True ),
+                                                      ( cnf_xml_dict, "<!-- Welcome To The Jungle   -->", "Comment Test", True),
+                                                      ( cnf_xml_dict, "<b><!-- test comment --><d> content </d></b>", "Normal Tag and Comment Test", True),
+                                                      ( cnf_xml_dict, "<123> text </123>", "Numbers as Tag Names Test", False),
+                                                      ( cnf_xml_dict, "< space > text </ space >", "Spaces Between Tag Names Test", False),
+                                                      ( cnf_xml_dict, "<b>  comparison &lt;&gt;&amp;&apos;&quot; </b>", "Use of Entity References within content", True),
+                                                      ( cnf_xml_dict, "<b id=\"501\" message=\"Hello World\"></b>", "Use of Attributes", True),
+                                                      ( cnf_xml_dict, "<TopLayer id=\"501\"><SecondLayer test=\"8\"> Test 1 &lt; Test 2  </SecondLayer></TopLayer>", "Combine Everything", True),
+                                                     ] )
+def test_CYK_XML( dictionary, string, test_type, result ):
+
+    letters = list( string )
+
+    assert ( cyk_parser( dictionary, letters ) == result )
+    print( f"Test #4 ( CYK PARSING XML ) | Test Type: [{test_type}] | String: {string} | Result: {result} | PASSED")
+    print( "--------------------------------------------------------------------------------------------------------------------------------------------------------------\n" )
