@@ -46,12 +46,19 @@ xml = CFG.fromstring(
         SPACE -> ' '
 """)
 
+html = CFG.fromstring(
+    """
+        S -> NP VP
+        NP -> Det N
+        VP -> V NP
+        Det -> 'the' | 'a'
+        N -> 'dog' | 'cat'
+        V -> 'chases' | 'sees'
+""")
+
 alphabet_numbers = CFG.fromstring(
     """
-        S -> LETTER S | NUMBER S | SPACE S | LETTER | NUMBER | SPACE
-        LETTER -> 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z'
-        NUMBER -> '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
-        SPACE -> ' '
+        S -> 'h'
 """)
 
 invalid_CNF_grammar = CFG.fromstring(
