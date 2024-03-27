@@ -4,7 +4,7 @@
 
 from nltk import CFG
 from pprint import pprint
-from Grammars import xml, basic_grammar
+from Grammars import xml, basic_grammar, alphabet_numbers
 
 
 def valid_CFG( grammar ):
@@ -46,7 +46,7 @@ def dictionary_creation( grammar_rules ):
         
         # Add the RHS as a tuple of strings to the set for the corresponding LHS
         rule_dict[left_hand_side].add(right_hand_side)
-    #pprint( rule_dict )
+    pprint( rule_dict )
             
     #for production in grammar_rules:
     #    print( f"LHS: {production.lhs( )} | RHS: {production.rhs( )}")
@@ -77,13 +77,16 @@ def cyk_parser( rule_dictionary, words ):
     
     return( 'S' in table[ 0 ][ word_count - 1] )
 
-my_dict = dictionary_creation( basic_grammar.chomsky_normal_form( ).productions( ) )
+my_dict = dictionary_creation( xml.chomsky_normal_form( ).productions( ) )
 #pprint(my_dict)
 
 string1 = "the dog sees a cat"
 string2 = "the cat chases the dog"
 string3 = "dog chases cat"
 string4 = "chases the dog the cat"
-words = string4.split()
+words = string1.split()
 
-print( cyk_parser(my_dict, words ) )
+letters = list( "<b><d> hello world</bbb></b>" )
+
+
+print( cyk_parser(my_dict, letters ) )
