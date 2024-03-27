@@ -52,22 +52,32 @@ def cyk_parser( rule_dictionary, string ):
 
     letter_count = len( string )
 
+    #Create the table based on the size of symbols/words we're going to use
     table = [ [ set( ) for _ in range( letter_count ) ] for _ in range( letter_count ) ]
 
+    #Fill the table 
     for i, letter in enumerate( string ):
         for left_hand_side, right_hand_side in rule_dictionary.items( ):
+            #If the letter is part of the RHS, add the LHS to the corresponding cell in the table
             if (letter,) in right_hand_side:
                 table[ i ][ i ].add( left_hand_side )
     
+    #Fill the table with substrings/symbols by combining smaller substrings/other symbols that have been processed
     for length in range( 2, letter_count + 1 ):
         for i in range( letter_count - length + 1 ):
             for j in range( i + 1, i + length ):
+                #Trying to combine substrings/symbols
                 for k in range( i, j ):
+                    #Check production rules
                     for left_hand_side, rhs_list in rule_dictionary.items( ):
                         for right_hand_side in rhs_list:
+                            #Check for binary productions
                             if len( right_hand_side ) == 2:
                                 B, C = right_hand_side
+                                #If B can generate the first part of the substring and C can generate
+                                #the second part, then A (lhs) can generate the entire substring.
                                 if ( B in table[ i ][ k ] and C in table[ k + 1 ][ i + length - 1] ):
                                     table[ i ][ i + length - 1 ].add( left_hand_side )
     
+    #Return Tre or False depending if 'S' is in the top-right cell of the table
     return( 'S' in table[ 0 ][ letter_count - 1] )
