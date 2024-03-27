@@ -6,16 +6,37 @@ from nltk import CFG
 
 xml = CFG.fromstring(
     """
-        S -> CONTEXT | LESS_THAN CONTEXT GREATER_THAN S LESS_THAN SLASH CONTEXT GREATER_THAN | LESS_THAN CONTEXT GREATER_THAN LESS_THAN SLASH CONTEXT GREATER_THAN
-        S -> LESS_THAN EXCLAMATION DASH DASH CONTEXT DASH DASH GREATER_THAN
-        S -> S LESS_THAN EXCLAMATION DASH DASH CONTEXT DASH DASH GREATER_THAN
-        S -> LESS_THAN EXCLAMATION DASH DASH CONTEXT DASH DASH GREATER_THAN S
+        S -> TEXT | LESS_THAN TAG GREATER_THAN S LESS_THAN SLASH TAG GREATER_THAN | LESS_THAN TAG GREATER_THAN LESS_THAN SLASH TAG GREATER_THAN
+        S -> LESS_THAN EXCLAMATION DASH DASH TEXT DASH DASH GREATER_THAN
+        S -> S LESS_THAN EXCLAMATION DASH DASH TEXT DASH DASH GREATER_THAN
+        S -> LESS_THAN EXCLAMATION DASH DASH TEXT DASH DASH GREATER_THAN S
         LESS_THAN -> "<"
         GREATER_THAN -> ">"
         SLASH -> "/"
         EXCLAMATION -> '!'
         DASH -> '-'
-        CONTEXT -> LETTER CONTEXT | SPACE CONTEXT | NUMBER CONTEXT | LETTER | SPACE | NUMBER
+        TAG -> LETTER TAG | LETTER
+        TEXT -> LETTER TEXT | SPACE TEXT | NUMBER TEXT | LETTER | SPACE | NUMBER
+        LETTER -> 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z'
+        NUMBER -> '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+        SPACE -> ' '
+""")
+
+
+
+xml_backup = CFG.fromstring(
+    """
+        S -> TEXT | LESS_THAN TAG GREATER_THAN S LESS_THAN SLASH TAG GREATER_THAN | LESS_THAN TAG GREATER_THAN LESS_THAN SLASH TAG GREATER_THAN
+        S -> LESS_THAN EXCLAMATION DASH DASH TEXT DASH DASH GREATER_THAN
+        S -> S LESS_THAN EXCLAMATION DASH DASH TEXT DASH DASH GREATER_THAN
+        S -> LESS_THAN EXCLAMATION DASH DASH TEXT DASH DASH GREATER_THAN S
+        LESS_THAN -> "<"
+        GREATER_THAN -> ">"
+        SLASH -> "/"
+        EXCLAMATION -> '!'
+        DASH -> '-'
+        TAG -> LETTER TAG | LETTER
+        TEXT -> LETTER TEXT | SPACE TEXT | NUMBER TEXT | LETTER | SPACE | NUMBER
         LETTER -> 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z'
         NUMBER -> '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
         SPACE -> ' '

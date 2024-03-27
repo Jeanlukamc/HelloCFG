@@ -46,3 +46,18 @@ def test_CYK_parser_per_word( grammar, string, result ):
     print( f"Test #3 ( CYK PARSING PER WORD ) | String: {string} | Result: {result} | PASSED")
     print( "----------------------------------------------------------------------------------------------------\n" )
 
+
+@pytest.mark.parametrize( "grammar, string, test_type, result", [( xml, "<b> test </b>", "Normal Tag Test", True ),
+                                                      ( xml, "<!-- welcome to the jungle   -->", "Comment Test", True),
+                                                      ( xml, "<b><!-- test comment --><d> content </d></b>", "Normal Tag and Comment Test", True),
+                                                      ( xml, "<123> text </123>", "Numbers as Tag Names Test", False),
+                                                      ( xml, "< space > text </ space >", "Spaces Between Tag Names Test", False)
+                                                     ] )
+def test_CYK_XML( grammar, string, test_type, result ):
+    rule_dict = dictionary_creation( grammar.chomsky_normal_form( ).productions( ) )
+
+    letters = list( string )
+
+    assert ( cyk_parser( rule_dict, letters ) == result )
+    print( f"Test #4 ( CYK PARSING XML ) | Test Type: [{test_type}] | String: {string} | Result: {result} | PASSED")
+    print( "--------------------------------------------------------------------------------------------------------------------------------------------------------------\n" )
