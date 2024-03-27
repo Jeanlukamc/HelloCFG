@@ -47,8 +47,8 @@ def test_CYK_parser_per_word( grammar, string, result ):
     print( "----------------------------------------------------------------------------------------------------\n" )
 
 
-@pytest.mark.parametrize( "grammar, string, test_type, result", [( xml, "<b> test </b>", "Normal Tag Test", True ),
-                                                      ( xml, "<!-- welcome to the jungle   -->", "Comment Test", True),
+@pytest.mark.parametrize( "grammar, string, test_type, result", [( xml, "<CustomTag> Testing Letters and 12345 </CustomTag>", "Normal Tag Test", True ),
+                                                      ( xml, "<!-- Welcome To The Jungle   -->", "Comment Test", True),
                                                       ( xml, "<b><!-- test comment --><d> content </d></b>", "Normal Tag and Comment Test", True),
                                                       ( xml, "<123> text </123>", "Numbers as Tag Names Test", False),
                                                       ( xml, "< space > text </ space >", "Spaces Between Tag Names Test", False),
