@@ -28,32 +28,21 @@ def test_CNF_conversion( grammar, test_num, result ):
     print( "----------------------------------------------------------------------------------------------------\n" )
 
 
-@pytest.mark.parametrize( "grammar, strings, test_num, results", [( basic_grammar,
-                                                                [
-                                                                    "the cat chases the dog",
-                                                                    "a dog sees the cat",
-                                                                    "the dog chases the dog",
-                                                                    "the cat sleeps the dog",
-                                                                    "dog chases cat",
-                                                                    "the dog on in the park",
-                                                                    "chases the dog the cat"
-                                                                ],
-                                                                1,
-                                                                [ True,
-                                                                  True,
-                                                                  True,
-                                                                  False,
-                                                                  False,
-                                                                  False,
-                                                                  False
-                                                                ] ) ])
-def test_CYK_parser( grammar, strings, test_num, results ):
+@pytest.mark.parametrize( "grammar, string, result", [  ( basic_grammar, "the cat chases the dog", True ),
+                                                                    ( basic_grammar, "a dog sees the cat", True ),
+                                                                    ( basic_grammar, "the dog chases the dog", True ),
+                                                                    ( basic_grammar, "the cat sleeps the dog", False ),
+                                                                    ( basic_grammar, "dog chases cat", False ),
+                                                                    ( basic_grammar, "the dog on in the park", False ),
+                                                                    ( basic_grammar, "chases the dog the cat", False )
+                                                                ] )
+def test_CYK_parser_per_word( grammar, string, result ):
     """Tests the CYK parser for string validity"""
     rule_dict = dictionary_creation( grammar.chomsky_normal_form( ).productions( ) )
 
-    for string in range( 0, len( strings )):
-        words = strings[ string ].split( )
-        assert ( cyk_parser( rule_dict, words ) == results[ string ] )
-        print( f"Test #3 ( CYK PARSING ) | Languege #{test_num} Result: {results[ string ]} | PASSED")
-        print( "----------------------------------------------------------------------------------------------------\n" )
+    words = string.split( )
+
+    assert ( cyk_parser( rule_dict, words ) == result )
+    print( f"Test #3 ( CYK PARSING PER WORD ) | String: {string} | Result: {result} | PASSED")
+    print( "----------------------------------------------------------------------------------------------------\n" )
 

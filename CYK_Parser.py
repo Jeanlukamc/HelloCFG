@@ -86,7 +86,8 @@ string3 = "dog chases cat"
 string4 = "chases the dog the cat"
 words = string1.split()
 
-letters = list( "<b><d> hello world</bbb></b>" )
+letters = list( "<b> test </b><!-- oh hello  -->" )
 
 
 print( cyk_parser(my_dict, letters ) )
+print( letters )
