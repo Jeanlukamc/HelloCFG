@@ -48,12 +48,13 @@ xml = CFG.fromstring(
 
 html = CFG.fromstring(
     """
-        S -> NP VP
-        NP -> Det N
-        VP -> V NP
-        Det -> 'the' | 'a'
-        N -> 'dog' | 'cat'
-        V -> 'chases' | 'sees'
+        S -> LESS_THAN HTML GREATER_THAN CONTENT LESS_THAN SLASH HTML GREATER_THAN | LESS_THAN HTML GREATER_THAN LESS_THAN SLASH HTML GREATER_THAN
+        LESS_THAN -> '<'
+        GREATER_THAN -> '>'
+        SLASH -> '/'
+        HTML -> 'html'
+        
+        
 """)
 
 invalid_CNF_grammar = CFG.fromstring(
