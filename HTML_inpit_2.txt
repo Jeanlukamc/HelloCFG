@@ -1,0 +1,27 @@
+<html>
+<head>
+    <title>Test HTML File</title>
+</head>
+<body>
+    <h1>Header 1</h1>
+    <h2>Header 2</h2>
+    <p>This is a paragraph <em>with emphasis</em> and <strong>strong text</strong>.</p>
+    <a href="#">A link</a>
+    <img src="image.jpg" alt="An image">
+    <ul>
+        <li>List item in unordered list</li>
+    </ul>
+    <ol>
+        <li>List item in ordered list</li>
+    </ol>
+    <div>A div element</div>
+    <span>A span element</span>
+    <br>
+    <hr>
+    <form action="#">
+        <input type="text" name="textfield">
+        <textarea name="textarea">Some text here</textarea>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
