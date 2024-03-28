@@ -3,8 +3,6 @@
 #25/03/2024
 
 from nltk import CFG
-from Grammars import xml, basic_grammar, alphabet_numbers
-
 
 def valid_CFG( grammar ):
     """Tests whether a grammar is Context Free"""
@@ -29,6 +27,10 @@ def conversion_to_CNF( grammar ):
     except Exception as e:
         print( f"An unexpected error occurred: {e}" )
         return ( False )
+    
+
+def HTML_input_collector( ):
+    """Collects the inputs and formats it to read for the parser (HTML)"""
 
 
 def dictionary_creation( grammar_rules ):

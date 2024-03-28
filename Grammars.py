@@ -56,11 +56,6 @@ html = CFG.fromstring(
         V -> 'chases' | 'sees'
 """)
 
-alphabet_numbers = CFG.fromstring(
-    """
-        S -> 'h'
-""")
-
 invalid_CNF_grammar = CFG.fromstring(
     """
         S -> CONTEXT | LESS_THAN CONTEXT GREATER_THAN S SLASH_LESS_THAN CONTEXT GREATER_THAN | LESS_THAN CONTEXT GREATER_THAN SLASH_LESS_THAN CONTEXT GREATER_THAN
