@@ -29,8 +29,18 @@ def conversion_to_CNF( grammar ):
         return ( False )
     
 
-def HTML_input_collector( ):
-    """Collects the inputs and formats it to read for the parser (HTML)"""
+def HTML_input_collector( input_file ):
+    """Collects the input from the file"""
+    html_input = ""
+
+    with open( input_file ) as file:
+        for line in file:
+            html_input = html_input + line.strip( )
+    
+    print( html_input )
+
+    return( html_input )
+
 
 
 def dictionary_creation( grammar_rules ):
@@ -83,3 +93,6 @@ def cyk_parser( rule_dictionary, string ):
     
     #Return Tre or False depending if 'S' is in the top-right cell of the table
     return( 'S' in table[ 0 ][ letter_count - 1] )
+
+
+HTML_input_collector( "HTML_input_1.txt" )
