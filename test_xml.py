@@ -5,7 +5,7 @@
 import pytest
 from nltk import CFG
 from CYK_Parser import dictionary_creation, cyk_parser
-from Grammars import xml, invalid_CNF_grammar, basic_grammar
+from Grammars import xml
 
 
 #Generate the dictionary once so the process doesn't need to be repeated

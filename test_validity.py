@@ -35,7 +35,7 @@ def test_input_collector( file, string ):
     file_input = input_collector( file )
 
     assert( file_input == string )
-    print( f"Test #3 ( Valid Input Collection Test ) | File: {file} -> Expected Result: {string} | Result: {file_input == string} | PASSED")
+    print( f"Test #3 ( Valid Input Collection Test ) | File: [{file}] -> Expected Result: {string} | Result: {file_input == string} | PASSED")
     print( "--------------------------------------------------------------------------------------------------------------------------------------\n" )
 
 @pytest.mark.parametrize( "grammar, string, result", [  ( basic_grammar, "the cat chases the dog", True ),

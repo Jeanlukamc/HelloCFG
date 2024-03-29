@@ -1,3 +1,2 @@
 	<html lang="en" dir="ltr">
-		Mr Landslide
-	<html>
+	</html>
