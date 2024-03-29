@@ -36,7 +36,7 @@ cnf_html_dict = dictionary_creation( html.chomsky_normal_form( ).productions( ) 
                                                                   ( cnf_html_dict, "FILES\\HTML_Files\\HTML_3.txt", "Head and Body Test", True ),
                                                                   ( cnf_html_dict, "FILES\\HTML_Files\\HTML_4.txt", "Heading 1 - 6 Test", True ),
                                                                   ( cnf_html_dict, "FILES\\HTML_Files\\HTML_5.txt", "Line Break and Horizontal Rule Test", False ),
-                                                                  ( cnf_html_dict, "FILES\\HTML_Files\\HTML_6.txt", "Strong Test", True )] )
+                                                                  ( cnf_html_dict, "FILES\\HTML_Files\\HTML_6.txt", "Strong and Span Test", True )] )
 def test_CYK_XML( dictionary, file, test_type, result ):
     """Tests the input strings to make sure they are valid for the language"""
     file_input = input_collector( file )
@@ -44,5 +44,5 @@ def test_CYK_XML( dictionary, file, test_type, result ):
     tokens = html_input_tokenizer( file_input )
     
     assert ( cyk_parser( dictionary, tokens ) == result )
-    print( f"Test #3 ( CYK PARSING HTML ) | Test Type: [{test_type}] | tokens: {tokens} | Result: {result} | PASSED")
+    print( f"Test #3 ( CYK PARSING HTML ) | Test Type: [{test_type}] | Result: {result} | PASSED")
     print( "--------------------------------------------------------------------------------------------------------------------------------------------------------------\n" )

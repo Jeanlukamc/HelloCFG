@@ -1,7 +1,9 @@
 <html>
 	<body>
 		<p>
-			<strong> highlight </strong>
+			<span>
+				<strong> highlight </strong>
+			</span>
 		</p>
 	</body>
 </html>
