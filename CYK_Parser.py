@@ -3,6 +3,7 @@
 #25/03/2024
 
 from nltk import CFG
+from Grammars import html
 
 def valid_CFG( grammar ):
     """Tests whether a grammar is Context Free"""
@@ -38,39 +39,52 @@ def input_collector( input_file ):
             result = result + line.strip( )
     return( result )
 
-def html_xml_input_tokenizer( file_input ):
+def html_input_tokenizer( file_input ):
     """Tokenizes the input in the context for html and xml"""
+    lookout_chars = ["<", ">", "/"]
 
     tokens = []
-
     current_token = ""
+    inside_tag = False
 
     for char in file_input:
-        #If it's a start or slash symbol, append the tag
-        if ( char == "<" or char == "/" ):
+        if ( char in lookout_chars ):
+            if ( current_token != "" ):
+                if ( not inside_tag ):
+                    tokens += process_text_tokens( current_token )
+                else:
+
+                    tokens += current_token.split( )
+            
+                current_token = ""
             tokens.append( char )
-        #If it's the end of the tag, append the processed token and the end tag
-        #Reset the current_token to empty
-        elif( char == ">" ):
-            temp_list = process_tokens( current_token )
-            tokens += temp_list
-            tokens.append( char )
-            current_token = ""
-        #Add the character to the token
+
+            if ( char == "<" ):
+                inside_tag = True
+            elif ( char == ">" ):
+                inside_tag = False
         else:
             current_token += char
+    
+    if ( current_token != "" ):
+        if ( not inside_tag ):
+            tokens += process_text_tokens( current_token )
+        else:
+            tokens.append( current_token )
     
     print( f"Tokens Taken: {tokens}" )
     return( tokens )
 
 
-def process_tokens( token ):
-    """Trim the token to be appropriate for the parser to understand"""
-    new_tokens = token.split( )
+def process_text_tokens( token ):
+    """Trim text tokens to individual characters, excluding whitespace"""
+    
+    text_tokens = []
+    for char in token:
+        if ( char != " " ):
+            text_tokens.append( char )
+    return( text_tokens )
 
-    #print( f"NEW: {new_tokens}" )
-
-    return( new_tokens)
 
 
 def dictionary_creation( grammar_rules ):
@@ -124,6 +138,9 @@ def cyk_parser( rule_dictionary, string ):
     #Return Tre or False depending if 'S' is in the top-right cell of the table
     return( 'S' in table[ 0 ][ letter_count - 1] )
 
-test = input_collector( "html_test.txt" )
+#test = input_collector( "FILES\\HTML_Files\\HTML_3.txt" )
 
-html_xml_input_tokenizer( test )
+#tokens = html_input_tokenizer( test )
+
+#cnf_html_dict = dictionary_creation( html.chomsky_normal_form( ).productions( ) )
+#print( cyk_parser( cnf_html_dict, tokens ) )
