@@ -33,7 +33,8 @@ def test_input_tokenizer( file, tokens ):
 #Generate the dictionary once so the process doesn't need to be repeated
 cnf_html_dict = dictionary_creation( html.chomsky_normal_form( ).productions( ) )
 @pytest.mark.parametrize( "dictionary, file, test_type, result", [( cnf_html_dict, "FILES\\HTML_Files\\HTML_2.txt", "Normal Tag Test", True ),
-                                                                  ( cnf_html_dict, "FILES\\HTML_Files\\HTML_3.txt", "Head and Body Test", True )] )
+                                                                  ( cnf_html_dict, "FILES\\HTML_Files\\HTML_3.txt", "Head and Body Test", True ),
+                                                                  ( cnf_html_dict, "FILES\\HTML_Files\\HTML_4.txt", "Heading 1 - 6 Test", True )] )
 def test_CYK_XML( dictionary, file, test_type, result ):
     """Tests the input strings to make sure they are valid for the language"""
     file_input = input_collector( file )

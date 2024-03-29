@@ -62,9 +62,25 @@ html = CFG.fromstring(
         TITLE_NAME -> 'title'
         
         BODY -> LESS_THAN BODY_NAME GREATER_THAN BODY_CONTENT LESS_THAN SLASH BODY_NAME GREATER_THAN
-        BODY_CONTENT -> TEXT BODY_CONTENT
-        BODY_CONTENT -> TEXT
+        BODY_CONTENT -> TEXT BODY_CONTENT | HEADING BODY_CONTENT
+        BODY_CONTENT -> TEXT | HEADING
         BODY_NAME -> 'body'
+
+        HEADING -> H1 | H2 | H3 | H4 | H5 | H6
+
+        H1 -> LESS_THAN H1_NAME GREATER_THAN TEXT LESS_THAN SLASH H1_NAME GREATER_THAN
+        H2 -> LESS_THAN H2_NAME GREATER_THAN TEXT LESS_THAN SLASH H2_NAME GREATER_THAN
+        H3 -> LESS_THAN H3_NAME GREATER_THAN TEXT LESS_THAN SLASH H3_NAME GREATER_THAN
+        H4 -> LESS_THAN H4_NAME GREATER_THAN TEXT LESS_THAN SLASH H4_NAME GREATER_THAN
+        H5 -> LESS_THAN H5_NAME GREATER_THAN TEXT LESS_THAN SLASH H5_NAME GREATER_THAN
+        H6 -> LESS_THAN H6_NAME GREATER_THAN TEXT LESS_THAN SLASH H6_NAME GREATER_THAN
+        H1_NAME -> 'h1'
+        H2_NAME -> 'h2'
+        H3_NAME -> 'h3'
+        H4_NAME -> 'h4'
+        H5_NAME -> 'h5'
+        H6_NAME -> 'h6'
+
 
         TEXT -> LETTERS TEXT | NUMBERS TEXT | LETTERS | NUMBERS
         LETTERS -> 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z'
