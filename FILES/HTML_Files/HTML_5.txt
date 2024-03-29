@@ -1,8 +1,6 @@
 <html>
 	<body>
-		<br>
 		<h5> link <a> <br> link <hr> </a> </h5>
-		<img>
 		<br>
 		<hr>
 	</body>
