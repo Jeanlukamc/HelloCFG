@@ -38,6 +38,41 @@ def input_collector( input_file ):
             result = result + line.strip( )
     return( result )
 
+def html_xml_input_tokenizer( file_input ):
+    """Tokenizes the input in the context for html and xml"""
+
+    tokens = []
+
+    current_token = ""
+
+    for char in file_input:
+        #If it's a start or slash symbol, append the tag
+        if ( char == "<" or char == "/" ):
+            tokens.append( char )
+        #If it's the end of the tag, append the processed token and the end tag
+        #Reset the current_token to empty
+        elif( char == ">" ):
+            temp_list = process_tokens( current_token )
+            tokens += temp_list
+            tokens.append( char )
+            current_token = ""
+        #Add the character to the token
+        else:
+            current_token += char
+    
+    print( f"Tokens Taken: {tokens}" )
+    return( tokens )
+
+
+def process_tokens( token ):
+    """Trim the token to be appropriate for the parser to understand"""
+    new_tokens = token.split( )
+
+    #print( f"NEW: {new_tokens}" )
+
+    return( new_tokens)
+
+
 def dictionary_creation( grammar_rules ):
     """Creates a dictionary for the CYK algorithm to process"""
     rule_dict = {}
@@ -88,3 +123,7 @@ def cyk_parser( rule_dictionary, string ):
     
     #Return Tre or False depending if 'S' is in the top-right cell of the table
     return( 'S' in table[ 0 ][ letter_count - 1] )
+
+test = input_collector( "html_test.txt" )
+
+html_xml_input_tokenizer( test )
