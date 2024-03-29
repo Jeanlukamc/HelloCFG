@@ -2,7 +2,9 @@
 	<body>
 		<p>
 			<span>
-				<strong> highlight </strong>
+				<em>
+					<strong> highlight </strong> 
+				</em>
 			</span>
 		</p>
 	</body>

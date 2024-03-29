@@ -36,7 +36,8 @@ cnf_html_dict = dictionary_creation( html.chomsky_normal_form( ).productions( ) 
                                                                   ( cnf_html_dict, "FILES\\HTML_Files\\HTML_3.txt", "Head and Body Test", True ),
                                                                   ( cnf_html_dict, "FILES\\HTML_Files\\HTML_4.txt", "Heading 1 - 6 Test", True ),
                                                                   ( cnf_html_dict, "FILES\\HTML_Files\\HTML_5.txt", "Line Break and Horizontal Rule Test", False ),
-                                                                  ( cnf_html_dict, "FILES\\HTML_Files\\HTML_6.txt", "Strong and Span Test", True )] )
+                                                                  ( cnf_html_dict, "FILES\\HTML_Files\\HTML_6.txt", "Strong, Emphasis, and Span Test", True ),
+                                                                  ( cnf_html_dict, "FILES\\HTML_Files\\HTML_7.txt", "Lists, List Items, and List Nesting Test", True )] )
 def test_CYK_XML( dictionary, file, test_type, result ):
     """Tests the input strings to make sure they are valid for the language"""
     file_input = input_collector( file )
