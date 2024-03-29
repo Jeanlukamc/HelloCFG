@@ -17,12 +17,12 @@ cnf_xml_dict = dictionary_creation( xml.chomsky_normal_form( ).productions( ) )
                                                       ( cnf_xml_dict, "< space > text </ space >", "Spaces Between Tag Names Test", False),
                                                       ( cnf_xml_dict, "<b>  comparison &lt;&gt;&amp;&apos;&quot; </b>", "Use of Entity References within content", True),
                                                       ( cnf_xml_dict, "<b id=\"501\" message=\"Hello World\"></b>", "Use of Attributes", True),
-                                                      ( cnf_xml_dict, "<TopLayer id=\"501\"><SecondLayer test=\"8\"> Test 1 &lt; Test 2  </SecondLayer></TopLayer>", "Combine Everything", True),
+                                                      ( cnf_xml_dict, "<TopLayer id=\"501\"><SecondLayer test=\"8\">Test 1 &lt; Test 2</SecondLayer></TopLayer>", "Combine Everything", True),
                                                      ] )
 def test_CYK_XML( dictionary, string, test_type, result ):
     """Tests the xml gramamr with some inputs"""
     letters = list( string )
 
     assert ( cyk_parser( dictionary, letters ) == result )
-    print( f"Test #4 ( CYK PARSING XML ) | Test Type: [{test_type}] | String: {string} | Result: {result} | PASSED")
+    print( f"Test #1 ( CYK PARSING XML ) | Test Type: [{test_type}] | String: {string} | Result: {result} | PASSED")
     print( "--------------------------------------------------------------------------------------------------------------------------------------------------------------\n" )

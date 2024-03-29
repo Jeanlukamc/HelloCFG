@@ -1,10 +1,10 @@
-#Validiy and Conversion Tests
+#Validiy, File Reading, and Conversion Tests
 #By: Jean Luka Molina
 #25/03/2024
 
 import pytest
 from nltk import CFG
-from CYK_Parser import valid_CFG, conversion_to_CNF, dictionary_creation, cyk_parser
+from CYK_Parser import valid_CFG, conversion_to_CNF, input_collector, dictionary_creation, cyk_parser
 from Grammars import xml, invalid_CNF_grammar, basic_grammar
 
 
@@ -15,7 +15,7 @@ def test_valid_CFG( grammar, test_num, result):
     for item in grammar.productions( ):
         print( item )
     print( f"Test #1 ( VALID CFG ) | Languege #{test_num} Result: {result} | PASSED")
-    print( "----------------------------------------------------------------------------------------------------\n" )
+    print( "--------------------------------------------------------------------------------------------------------------------------------------\n" )
 
 @pytest.mark.parametrize( "grammar, test_num, result", [ ( xml, 1, True ), (invalid_CNF_grammar, 2, False), (basic_grammar, 3, True)] )
 def test_CNF_conversion( grammar, test_num, result ):
@@ -25,8 +25,18 @@ def test_CNF_conversion( grammar, test_num, result ):
         for item in grammar.chomsky_normal_form( ).productions( ):
             print( item )
     print( f"Test #2 ( VALID CNF CONVERSION ) | Languege #{test_num} Result: {result} | PASSED")
-    print( "----------------------------------------------------------------------------------------------------\n" )
+    print( "--------------------------------------------------------------------------------------------------------------------------------------\n" )
 
+@pytest.mark.parametrize( "file, string", [ ( "FILES\\Basic_Grammar_Files\\1.txt",  "the cat chases the dog"),
+                                            ( "FILES\\XML_Files\\xml_1.txt", "<TopLayer id=\"501\"><SecondLayer test=\"8\">Test 1 &lt; Test 2</SecondLayer></TopLayer>" ),
+                                            ( "FILES\\HTML_Files\\HTML_2.txt", '<html><head><title>Test HTML File</title></head><body><h1>Header 1</h1><h2>Header 2</h2><p>This is a paragraph <em>with emphasis</em> and <strong>strong text</strong>.</p><a href="#">A link</a><img src="image.jpg" alt="An image"><ul><li>List item in unordered list</li></ul><ol><li>List item in ordered list</li></ol><div>A div element</div><span>A span element</span><br><hr><form action="#"><input type="text" name="textfield"><textarea name="textarea">Some text here</textarea><input type="submit" value="Submit"></form></body></html>') ] )
+def test_input_collector( file, string ):
+    """Tests that we get the proper input to parse"""
+    file_input = input_collector( file )
+
+    assert( file_input == string )
+    print( f"Test #3 ( Valid Input Collection Test ) | File: {file} -> Expected Result: {string} | Result: {file_input == string} | PASSED")
+    print( "--------------------------------------------------------------------------------------------------------------------------------------\n" )
 
 @pytest.mark.parametrize( "grammar, string, result", [  ( basic_grammar, "the cat chases the dog", True ),
                                                                     ( basic_grammar, "a dog sees the cat", True ),
@@ -43,5 +53,5 @@ def test_CYK_parser_per_word( grammar, string, result ):
     words = string.split( )
 
     assert ( cyk_parser( rule_dict, words ) == result )
-    print( f"Test #3 ( CYK PARSING PER WORD ) | String: {string} | Result: {result} | PASSED")
-    print( "----------------------------------------------------------------------------------------------------\n" )
+    print( f"Test #4 ( CYK PARSING PER WORD ) | String: {string} | Result: {result} | PASSED")
+    print( "--------------------------------------------------------------------------------------------------------------------------------------\n" )
