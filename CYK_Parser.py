@@ -53,8 +53,8 @@ def html_input_tokenizer( file_input ):
                 if ( not inside_tag ):
                     tokens += process_text_tokens( current_token )
                 else:
-
-                    tokens += current_token.split( )
+                    #print( f"CURRENT TOKEN: {[current_token.strip( )]}")
+                    tokens += [current_token.strip( )]
             
                 current_token = ""
             tokens.append( char )
@@ -71,9 +71,57 @@ def html_input_tokenizer( file_input ):
             tokens += process_text_tokens( current_token )
         else:
             tokens.append( current_token )
+
+    final_tokens = []
+    for index in range( 0, len( tokens ) ):
+        if ( '="' in tokens[ index ] ):
+            final_tokens +=  process_attributes( tokens[ index ] )
+        else:
+            final_tokens.append( tokens[ index ] )
+
     
-    print( f"Tokens Taken: {tokens}" )
-    return( tokens )
+    #print( f"Tokens Taken: {tokens}" )
+    return( final_tokens )
+
+def process_attributes( token ):
+    """Trims appropriately the token to be valid for the parser, excluding all whitespace"""
+    new_tokens = []
+    print( f"TOKEN TO WORK WITH: '{token}'")
+
+    inside_quotes = False
+    current_token = ""
+    for char in token:
+        #If we found a space outside quotes and we have something to tokenize, copy the token and reset it
+        if ( char == ' ' and current_token != "" and not inside_quotes ):
+            new_tokens.append( current_token )
+            current_token = ""
+        #If not a space and outside quotes, add character
+        elif ( char != ' ' and char != '"' and not inside_quotes):
+            current_token += char
+        #If found the first quote, add the character
+        #Add the token, reset, and set inside quotes as true
+        elif( char == '"' and not inside_quotes ):
+            current_token += char
+            new_tokens.append( current_token )
+            current_token = ""
+            inside_quotes = True
+        #If we are inside the quote
+        elif ( inside_quotes == True ):
+            #If we haven't found the ending quote, keep adding
+            if( char != '"'):
+                current_token += char
+            #If we did, add the token and the quote separately and reset
+            #Set inside quotes as false
+            else:
+                new_tokens += process_text_tokens( current_token )
+                new_tokens.append( char )
+                current_token = ""
+                inside_quotes = False
+
+    #print( f"New Tokens{new_tokens}" )
+    return( new_tokens )
+
+
 
 
 def process_text_tokens( token ):
@@ -138,9 +186,10 @@ def cyk_parser( rule_dictionary, string ):
     #Return Tre or False depending if 'S' is in the top-right cell of the table
     return( 'S' in table[ 0 ][ letter_count - 1] )
 
-#test = input_collector( "FILES\\HTML_Files\\HTML_8.txt" )
+#test = input_collector( "FILES\\HTML_Files\\HTML_10.txt" )
 
 #tokens = html_input_tokenizer( test )
+#print(tokens)
 
 #cnf_html_dict = dictionary_creation( html.chomsky_normal_form( ).productions( ) )
 #print( cyk_parser( cnf_html_dict, tokens ) )
