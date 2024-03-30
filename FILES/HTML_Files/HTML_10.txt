@@ -19,9 +19,9 @@
     <br>
     <hr>
     <form action="#">
-        <input type="text" name="textfield">
-        <textarea name="textarea">Some text here</textarea>
-        <input type="submit" value="Submit">
+        <input type="text">
+        <textarea rows="4" cols="50">Some text here</textarea>
+        <input type="submit">
     </form>
 </body>
 </html>
