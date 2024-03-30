@@ -4,6 +4,17 @@
 
 from nltk import CFG
 
+
+morse_grammar = CFG.fromstring(
+    """
+    S -> TEXT
+    TEXT -> LETTERS TEXT | NUMBERS TEXT | LETTERS | NUMBERS
+    LETTERS -> '.-' | '-...' | '-.-.' | '-..' | '.' | '..-.' | '--.' | '....' | '..' | '.---' | '-.-' | '.-..' | '--' | '-.' | '---' | '.--.' | '--.-' | '.-.' | '...' | '-' | '..-' | '...-' | '.--' | '-..-' | '-.--' | '--..'
+    NUMBER -> '-----' | '.----' | '..---' | '...--' | '....-' | '.....' | '-....' | '--...' | '---..' | '----.'
+
+
+""")
+
 xml = CFG.fromstring(
     """
         S -> TEXT | LESS_THAN TAG GREATER_THAN S LESS_THAN SLASH TAG GREATER_THAN | LESS_THAN TAG GREATER_THAN LESS_THAN SLASH TAG GREATER_THAN
