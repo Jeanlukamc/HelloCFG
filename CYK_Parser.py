@@ -3,8 +3,7 @@
 #25/03/2024
 
 from nltk import CFG
-from Grammars import xml, basic_grammar, alphabet_numbers
-
+from Grammars import html
 
 def valid_CFG( grammar ):
     """Tests whether a grammar is Context Free"""
@@ -29,7 +28,100 @@ def conversion_to_CNF( grammar ):
     except Exception as e:
         print( f"An unexpected error occurred: {e}" )
         return ( False )
+    
 
+def input_collector( input_file ):
+    """Collects the input from the file"""
+    result = ""
+
+    with open( input_file ) as file:
+        for line in file:
+            result = result + line.strip( )
+    return( result )
+
+def html_input_tokenizer( file_input ):
+    """Tokenizes the input in the context for html"""
+    lookout_chars = ["<", ">", "/"]
+
+    tokens = []
+    current_token = ""
+    inside_tag = False
+
+    for char in file_input:
+        if ( char in lookout_chars ):
+            if ( current_token != "" ):
+                if ( not inside_tag ):
+                    tokens += process_text_tokens( current_token )
+                else:
+                    tokens += [current_token.strip( )]
+            
+                current_token = ""
+            tokens.append( char )
+
+            if ( char == "<" ):
+                inside_tag = True
+            elif ( char == ">" ):
+                inside_tag = False
+        else:
+            current_token += char
+    
+    if ( current_token != "" ):
+        if ( not inside_tag ):
+            tokens += process_text_tokens( current_token )
+        else:
+            tokens.append( current_token )
+
+    final_tokens = []
+    for index in range( 0, len( tokens ) ):
+        if ( '="' in tokens[ index ] ):
+            final_tokens +=  process_attributes( tokens[ index ] )
+        else:
+            final_tokens.append( tokens[ index ] )
+    return( final_tokens )
+
+def process_attributes( token ):
+    """Trims appropriately the token to be valid for the parser, excluding all whitespace"""
+    new_tokens = []
+
+    inside_quotes = False
+    current_token = ""
+    for char in token:
+        #If we found a space outside quotes and we have something to tokenize, copy the token and reset it
+        if ( char == ' ' and current_token != "" and not inside_quotes ):
+            new_tokens.append( current_token )
+            current_token = ""
+        #If not a space or the start of a quote as well as outside quotes, add the character
+        elif ( char != ' ' and char != '"' and not inside_quotes):
+            current_token += char
+        #If found the first quote, add the character
+        #Add the token, reset, and set inside quotes as true
+        elif( char == '"' and not inside_quotes ):
+            current_token += char
+            new_tokens.append( current_token )
+            current_token = ""
+            inside_quotes = True
+        #If we are inside the quote
+        elif ( inside_quotes == True ):
+            #If we haven't found the ending quote, keep adding
+            if( char != '"'):
+                current_token += char
+            #If we did, add the token and the quote separately and reset
+            #Set inside quotes as false
+            else:
+                new_tokens += process_text_tokens( current_token )
+                new_tokens.append( char )
+                current_token = ""
+                inside_quotes = False
+    return( new_tokens )
+
+def process_text_tokens( token ):
+    """Trim text tokens to individual characters, excluding whitespace"""
+    
+    text_tokens = []
+    for char in token:
+        if ( char != " " ):
+            text_tokens.append( char )
+    return( text_tokens )
 
 def dictionary_creation( grammar_rules ):
     """Creates a dictionary for the CYK algorithm to process"""
@@ -53,7 +145,7 @@ def cyk_parser( rule_dictionary, string ):
     letter_count = len( string )
 
     #Create the table based on the size of symbols/words we're going to use
-    table = [ [ set( ) for _ in range( letter_count ) ] for _ in range( letter_count ) ]
+    table = [ [ set( ) for i in range( letter_count ) ] for j in range( letter_count ) ]
 
     #Fill the table 
     for i, letter in enumerate( string ):
@@ -81,3 +173,11 @@ def cyk_parser( rule_dictionary, string ):
     
     #Return Tre or False depending if 'S' is in the top-right cell of the table
     return( 'S' in table[ 0 ][ letter_count - 1] )
+
+#test = input_collector( "FILES\\HTML_Files\\HTML_5.txt" )
+#print( test )
+#okens = html_input_tokenizer( test )
+#print(tokens)
+
+#cnf_html_dict = dictionary_creation( html.chomsky_normal_form( ).productions( ) )
+#print( cyk_parser( cnf_html_dict, tokens ) )

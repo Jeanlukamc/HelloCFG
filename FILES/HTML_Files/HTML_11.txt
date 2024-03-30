@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+    <title>Test</title>
+</head>
+<body>
+    <h1>Head 1</h1>
+    <h2>Head 2</h2>
+    <p>par <em>emp</em> and <strong>text</strong></p>
+    <a href="h">link</a>
+    <img src="p" alt="image">
+    <ul>
+        <li>list 1</li>
+    </ul>
+    <ol>
+        <li>List 2</li>
+    </ol>
+    <div>div</div>
+    <span>span</span>
+    <br>
+    <hr>
+    <form action="h">
+        <input type="t">
+        <textarea id="t" name="yo" rows="4" cols="50">h</textarea>
+        <input type="s">
+    </form>
+</body>
+</html>
