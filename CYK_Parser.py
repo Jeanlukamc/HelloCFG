@@ -40,7 +40,7 @@ def input_collector( input_file ):
     return( result )
 
 def html_input_tokenizer( file_input ):
-    """Tokenizes the input in the context for html and xml"""
+    """Tokenizes the input in the context for html"""
     lookout_chars = ["<", ">", "/"]
 
     tokens = []
@@ -53,7 +53,6 @@ def html_input_tokenizer( file_input ):
                 if ( not inside_tag ):
                     tokens += process_text_tokens( current_token )
                 else:
-                    #print( f"CURRENT TOKEN: {[current_token.strip( )]}")
                     tokens += [current_token.strip( )]
             
                 current_token = ""
@@ -78,15 +77,11 @@ def html_input_tokenizer( file_input ):
             final_tokens +=  process_attributes( tokens[ index ] )
         else:
             final_tokens.append( tokens[ index ] )
-
-    
-    #print( f"Tokens Taken: {tokens}" )
     return( final_tokens )
 
 def process_attributes( token ):
     """Trims appropriately the token to be valid for the parser, excluding all whitespace"""
     new_tokens = []
-    print( f"TOKEN TO WORK WITH: '{token}'")
 
     inside_quotes = False
     current_token = ""
@@ -95,7 +90,7 @@ def process_attributes( token ):
         if ( char == ' ' and current_token != "" and not inside_quotes ):
             new_tokens.append( current_token )
             current_token = ""
-        #If not a space and outside quotes, add character
+        #If not a space or the start of a quote as well as outside quotes, add the character
         elif ( char != ' ' and char != '"' and not inside_quotes):
             current_token += char
         #If found the first quote, add the character
@@ -117,12 +112,7 @@ def process_attributes( token ):
                 new_tokens.append( char )
                 current_token = ""
                 inside_quotes = False
-
-    #print( f"New Tokens{new_tokens}" )
     return( new_tokens )
-
-
-
 
 def process_text_tokens( token ):
     """Trim text tokens to individual characters, excluding whitespace"""
@@ -132,8 +122,6 @@ def process_text_tokens( token ):
         if ( char != " " ):
             text_tokens.append( char )
     return( text_tokens )
-
-
 
 def dictionary_creation( grammar_rules ):
     """Creates a dictionary for the CYK algorithm to process"""
@@ -157,7 +145,7 @@ def cyk_parser( rule_dictionary, string ):
     letter_count = len( string )
 
     #Create the table based on the size of symbols/words we're going to use
-    table = [ [ set( ) for _ in range( letter_count ) ] for _ in range( letter_count ) ]
+    table = [ [ set( ) for i in range( letter_count ) ] for j in range( letter_count ) ]
 
     #Fill the table 
     for i, letter in enumerate( string ):

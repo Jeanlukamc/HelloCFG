@@ -25,7 +25,7 @@ def test_input_tokenizer( file, tokens ):
 
     result = html_input_tokenizer( file_input )
     assert( result == tokens )
-    print( f"Test #2 ( Tokenizing Test ) | File: [{file}] -> Expected Result: {tokens} | Result: {result == tokens} | PASSED")
+    print( f"Test #1 ( Tokenizing Test ) | File: [{file}] -> Expected Result: {tokens} | Result: {result == tokens} | PASSED")
     print( "--------------------------------------------------------------------------------------------------------------------------------------\n" )
 
     
@@ -48,5 +48,5 @@ def test_CYK_XML( dictionary, file, test_type, result ):
     tokens = html_input_tokenizer( file_input )
     
     assert ( cyk_parser( dictionary, tokens ) == result )
-    print( f"Test #3 ( CYK PARSING HTML ) | Test Type: [{test_type}] | Result: {result} | PASSED")
+    print( f"Test #2 ( CYK PARSING HTML ) | Test Type: [{test_type}] | Result: {result} | PASSED")
     print( "--------------------------------------------------------------------------------------------------------------------------------------------------------------\n" )
