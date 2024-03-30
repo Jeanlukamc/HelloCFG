@@ -1,5 +1,6 @@
 <html lang="en" dir="ltr">
 	<body>
 		<a href="test" lang="en"> text </a>
+		<input type="strand" dir="t">
 	</body>
 </html>

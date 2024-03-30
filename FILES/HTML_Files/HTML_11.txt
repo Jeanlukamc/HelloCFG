@@ -1,26 +1,26 @@
 <html>
 <head>
-    <title>Test HTML File</title>
+    <title>Test</title>
 </head>
 <body>
-    <h1>Header 1</h1>
-    <h2>Header 2</h2>
-    <p>This is a paragraph <em>with emphasis</em> and <strong>strong text</strong>.</p>
-    <a href="#">A link</a>
-    <img src="image.jpg" alt="An image">
+    <h1>Head 1</h1>
+    <h2>Head 2</h2>
+    <p>paragraph <em>emphasis</em> and <strong>text</strong></p>
+    <a href="t">link</a>
+    <img src="image" alt="An image">
     <ul>
-        <li>List item in unordered list</li>
+        <li>list 1</li>
     </ul>
     <ol>
-        <li>List item in ordered list</li>
+        <li>List 2</li>
     </ol>
-    <div>A div element</div>
-    <span>A span element</span>
+    <div>A div</div>
+    <span>A span</span>
     <br>
     <hr>
-    <form action="#">
+    <form action="place">
         <input type="text">
-        <textarea rows="4" cols="50">Some text here</textarea>
+        <textarea rows="4" cols="50">here</textarea>
         <input type="submit">
     </form>
 </body>

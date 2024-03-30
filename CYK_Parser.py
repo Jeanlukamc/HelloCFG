@@ -174,8 +174,8 @@ def cyk_parser( rule_dictionary, string ):
     #Return Tre or False depending if 'S' is in the top-right cell of the table
     return( 'S' in table[ 0 ][ letter_count - 1] )
 
-#test = input_collector( "FILES\\HTML_Files\\HTML_1.txt" )
-#print( test )
+test = input_collector( "FILES\\HTML_Files\\HTML_1.txt" )
+print( test )
 #tokens = html_input_tokenizer( test )
 #print(tokens)
 

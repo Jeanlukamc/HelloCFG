@@ -8,7 +8,7 @@ from CYK_Parser import dictionary_creation, input_collector, html_input_tokenize
 from Grammars import html
 
 
-@pytest.mark.parametrize( "file, string", [( "FILES\\HTML_Files\\HTML_1.txt", '<html lang="en" dir="ltr"><body><a href="test" lang="en"> text </a></body></html>' ) ] )
+@pytest.mark.parametrize( "file, string", [( "FILES\\HTML_Files\\HTML_1.txt", '<html lang="en" dir="ltr"><body><a href="test" lang="en"> text </a><input type="strand" dir="t"></body></html>' ) ] )
 def test_input_collector( file, string ):
     """Tests that we get the proper input to parse"""
     file_input = input_collector( file )
