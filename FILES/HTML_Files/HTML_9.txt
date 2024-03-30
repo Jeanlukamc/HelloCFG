@@ -1,11 +1,8 @@
 <html>
 	<body>
-		<form>
-			<input>
-			<textarea>
-				hello
-			</textarea>
-			<input>
-		</form>
+		<form action="place">
+			<textarea id="5" name="yo" rows="4" cols="50">h</textarea>
+			<input type="b">
+    </form>
 	</body>
 </html>
