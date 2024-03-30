@@ -8,7 +8,7 @@ from CYK_Parser import dictionary_creation, input_collector, html_input_tokenize
 from Grammars import html
 
 
-@pytest.mark.parametrize( "file, string", [( "FILES\\HTML_Files\\HTML_1.txt", '<html lang="en" dir="ltr"></html>' ) ] )
+@pytest.mark.parametrize( "file, string", [( "FILES\\HTML_Files\\HTML_1.txt", '<html lang="en" dir="ltr"><body><a href="test" lang="en"> text </a></body></html>' ) ] )
 def test_input_collector( file, string ):
     """Tests that we get the proper input to parse"""
     file_input = input_collector( file )
@@ -25,14 +25,15 @@ def test_input_tokenizer( file, tokens ):
 
     result = html_input_tokenizer( file_input )
     assert( result == tokens )
-    print( f"Test #1 ( Tokenizing Test ) | File: [{file}] -> Expected Result: {tokens} | Result: {result == tokens} | PASSED")
+    print( f"Test #2 ( Tokenizing Test ) | File: [{file}] -> Expected Result: {tokens} | Result: {result == tokens} | PASSED")
     print( "--------------------------------------------------------------------------------------------------------------------------------------\n" )
 
     
 
 #Generate the dictionary once so the process doesn't need to be repeated
 cnf_html_dict = dictionary_creation( html.chomsky_normal_form( ).productions( ) )
-@pytest.mark.parametrize( "dictionary, file, test_type, result", [( cnf_html_dict, "FILES\\HTML_Files\\HTML_2.txt", "Normal Tag Test", True ),
+@pytest.mark.parametrize( "dictionary, file, test_type, result", [( cnf_html_dict, "FILES\\HTML_Files\\HTML_1.txt", "Global Attributes Test", True ),
+                                                                  ( cnf_html_dict, "FILES\\HTML_Files\\HTML_2.txt", "Normal Tag Test", True ),
                                                                   ( cnf_html_dict, "FILES\\HTML_Files\\HTML_3.txt", "Head and Body Test", True ),
                                                                   ( cnf_html_dict, "FILES\\HTML_Files\\HTML_4.txt", "Heading 1 - 6 Test", True ),
                                                                   ( cnf_html_dict, "FILES\\HTML_Files\\HTML_5.txt", "Line Break and Horizontal Rule Test", False ),
@@ -48,5 +49,5 @@ def test_CYK_XML( dictionary, file, test_type, result ):
     tokens = html_input_tokenizer( file_input )
     
     assert ( cyk_parser( dictionary, tokens ) == result )
-    print( f"Test #2 ( CYK PARSING HTML ) | Test Type: [{test_type}] | Result: {result} | PASSED")
+    print( f"Test #3 ( CYK PARSING HTML ) | Test Type: [{test_type}] | Result: {result} | PASSED")
     print( "--------------------------------------------------------------------------------------------------------------------------------------------------------------\n" )

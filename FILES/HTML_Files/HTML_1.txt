@@ -1,2 +1,5 @@
-	<html lang="en" dir="ltr">
-	</html>
+<html lang="en" dir="ltr">
+	<body>
+		<a href="test" lang="en"> text </a>
+	</body>
+</html>
