@@ -10,13 +10,15 @@ MORSE_CODE_DICT = {
     '..-': 'U', '...-': 'V', '.--': 'W', '-..-': 'X', '-.--': 'Y',
     '--..': 'Z', '.----': '1', '..---': '2', '...--': '3',
     '....-': '4', '.....': '5', '-....': '6', '--...': '7',
-    '---..': '8', '----.': '9', '-----': '0', '@': ' '}
+    '---..': '8', '----.': '9', '-----': '0', '/': ' ',
+    '<': '<', '>' : '>'
+    }
 
 EXCEPTIONS = [ '<', '>', '(', ')' ]
 
 def english_equivalent( morse_code ):
     """Gives the equivalent """
-    words = morse_code.strip( '@' ).split( '@' ) #/ represents a separation between words
+    words = morse_code.strip( '/' ).split( '/' )
     message = ""
 
     for word in words:
@@ -32,6 +34,18 @@ def english_equivalent( morse_code ):
         message += " "
     message = message.strip( )
     return( message )
+
+def morse_input_collector( input_file ):
+    """Collects the input from the file"""
+    result = ""
+
+    with open( input_file ) as file:
+        for line in file:
+            line = line.strip( ).replace( '\n', '')
+            result = result + line + ' '
+    result = result.strip( )
+
+    return( result )
 
 def main( ):
     """Controls previous functions"""

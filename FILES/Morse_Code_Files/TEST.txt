@@ -1,0 +1,12 @@
+<while>
+<for>
+<if>
+<else>
+<add>
+<sub>
+<mult>
+<div>
+<mod>
+<return>
+<switch>
+<print>

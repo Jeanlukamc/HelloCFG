@@ -2,6 +2,8 @@
 #By: Jean Luka Molina
 #30/03/2020
 
+from morse_to_language import morse_input_collector, english_equivalent
+
 LANGUAGE_TO_MORSE_DICT = {
     'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 
     'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 
@@ -10,16 +12,11 @@ LANGUAGE_TO_MORSE_DICT = {
     'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 
     'Z': '--..', '1': '.----', '2': '..---', '3': '...--', 
     '4': '....-', '5': '.....', '6': '-....', '7': '--...', 
-    '8': '---..', '9': '----.', '0': '-----', ' ': '@'
+    '8': '---..', '9': '----.', '0': '-----', ' ': '/',
+    '<': '<', '>' : '>', '(' : '(', ')' : ')'
 }
 
-EXCEPTIONS = [ '=', '+', '-', '/', '*', '%', '(', ')' ]
-EXCEPTIONS_DICT = {
-    '=' : '<#.#--.-#..-#.-#.-..#...#>#', '+' : '<#.-#-..#-..#>#',
-    '-' : '<#...#..-#-...#>#', '/' : '<#-..#..#...-#>#',
-    '*' : '<#--#..-#.-..#-#>#', '%' : '<#--#---#-..#>#',
-    '(' : '(#', ')' : ')#'
-}
+RESERVED_MORSE_DICT = [ ]
 
 
 def morse_code_equivalent ( sentence ):
@@ -35,18 +32,17 @@ def morse_code_equivalent ( sentence ):
             #If valid, add to the current word its morse equivalent
             if ( letter in LANGUAGE_TO_MORSE_DICT ):
                 current_word += LANGUAGE_TO_MORSE_DICT[ letter ] + '#'
-            elif ( letter in EXCEPTIONS ):
-                current_word += EXCEPTIONS_DICT[ letter ]
             else:
                 current_word += "<INVALID>"
         morse_code_words.append( current_word )
-        morse_code_words.append( '@' )
+        morse_code_words.append( '/' )
         current_word = ""
-        
-
-                
     morse_sentence = "".join(morse_code_words)
     return morse_sentence
+
+def morse_tokenizer( tokens ):
+    """Tokenizes properly the list of words that we have"""
+
 
 def main( ):
     """Controls previous functions"""
@@ -55,4 +51,9 @@ def main( ):
     morse_code = morse_code_equivalent( sentence )
     print ( morse_code )
 
+my_input = morse_input_collector( "FILES\\Morse_Code_Files\\TEST.txt" ).upper( )
+print( f"MY RESULT: {my_input}" )
+morse =  morse_code_equivalent( my_input )
+print( morse)
+print( english_equivalent( morse ))
 #main( )
