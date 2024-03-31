@@ -13,10 +13,33 @@ LANGUAGE_TO_MORSE_DICT = {
     'Z': '--..', '1': '.----', '2': '..---', '3': '...--', 
     '4': '....-', '5': '.....', '6': '-....', '7': '--...', 
     '8': '---..', '9': '----.', '0': '-----', ' ': '/',
-    '<': '<', '>' : '>', '(' : '(', ')' : ')'
+    '<': '<', '>' : '>', '(' : '(', ')' : ')', ':' : ':'
 }
 
-RESERVED_MORSE_DICT = [ ]
+"""
+RESERVED LIST BY INDEX:
+- <WHILE>
+- <FOR>
+- <IF>
+- <ELSE>
+- <ADD>
+- <SUB>
+- <MULT>
+- <DIV>
+- <MOD>
+- <RETURN>
+- <SWITCH>
+- <PRINT>
+- <EQUALS>
+- <EQUALS><EQUALS>
+"""
+RESERVED_MORSE = [ 
+    '<#.--#....#..#.-..#.#>#', '<#..-.#---#.-.#>#', '<#..#..-.#>#',
+    '<#.#.-..#...#.#>#', '<#.-#-..#-..#>#', '<#...#..-#-...#>#',
+    '<#--#..-#.-..#-#>#', '<#-..#..#...-#>#', '<#--#---#-..#>#', '<#.-.#.#-#..-#.-.#-.#>#',
+    '<#...#.--#..#-#-.-.#....#>#', '<#.--.#.-.#..#-.#-#>#', '<#.#--.-#..-#.-#.-..#...#>#',
+    '<#.#--.-#..-#.-#.-..#...#>#<#.#--.-#..-#.-#.-..#...#>#'   
+]
 
 
 def morse_code_equivalent ( sentence ):
@@ -40,8 +63,28 @@ def morse_code_equivalent ( sentence ):
     morse_sentence = "".join(morse_code_words)
     return morse_sentence
 
-def morse_tokenizer( tokens ):
-    """Tokenizes properly the list of words that we have"""
+def morse_tokenizer( string ):
+    """Tokenizes properly the string that we have"""
+    tokens = string.split( '/' )
+    if( '' in tokens ):
+        tokens.remove( '' )
+    print( f"BEFORE TOKENS: {tokens}" )
+
+    new_tokens = []
+    for item in tokens:
+        if ( item in RESERVED_MORSE ):
+            new_tokens.append( item )
+        else:
+            morse_token = ""
+            for letter in item:
+                if ( letter !=  '#' ):
+                    morse_token += letter
+                else:
+                    morse_token += letter
+                    new_tokens.append( morse_token )
+                    morse_token = ""
+    
+    print( f"AFTER TOKENS: {new_tokens}" )
 
 
 def main( ):
@@ -51,9 +94,10 @@ def main( ):
     morse_code = morse_code_equivalent( sentence )
     print ( morse_code )
 
-my_input = morse_input_collector( "FILES\\Morse_Code_Files\\TEST.txt" ).upper( )
-print( f"MY RESULT: {my_input}" )
+my_input = morse_input_collector( "FILES\\Morse_Code_Files\\morse_1.txt" ).upper( )
+#print( f"My INPUT: {my_input}" )
+morse_tokenizer( my_input )
 morse =  morse_code_equivalent( my_input )
-print( morse)
-print( english_equivalent( morse ))
+print( f"MORSE: {my_input}" )
+print( f"ENGLISH: {english_equivalent( my_input )}")
 #main( )

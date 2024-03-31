@@ -14,7 +14,7 @@ MORSE_CODE_DICT = {
     '<': '<', '>' : '>'
     }
 
-EXCEPTIONS = [ '<', '>', '(', ')' ]
+EXCEPTIONS = [ '<', '>', '(', ')', ':' ]
 
 def english_equivalent( morse_code ):
     """Gives the equivalent """
@@ -45,13 +45,4 @@ def morse_input_collector( input_file ):
             result = result + line + ' '
     result = result.strip( )
 
-    return( result )
-
-def main( ):
-    """Controls previous functions"""
-    morse = input ( "Write a sentence you would like to be translated: " )
-    #morse = "....#.#.-..#.-..#---/.--#---#.-.#.-..#-.."
-    english = english_equivalent( morse )
-    print ( english )
-
-#main( )
+    return( result.upper( ) )
