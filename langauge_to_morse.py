@@ -3,6 +3,8 @@
 #30/03/2020
 
 from morse_to_language import morse_english_input_collector, english_equivalent
+from CYK_Parser import dictionary_creation, cyk_parser
+from Grammars import morse_grammar
 
 LANGUAGE_TO_MORSE_DICT = {
     'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 
@@ -68,7 +70,7 @@ def morse_tokenizer( string ):
     tokens = string.split( '/' )
     if( '' in tokens ):
         tokens.remove( '' )
-    print( f"BEFORE TOKENS: {tokens}" )
+    #print( f"BEFORE TOKENS: {tokens}" )
 
     new_tokens = []
     for item in tokens:
@@ -85,6 +87,8 @@ def morse_tokenizer( string ):
                     morse_token = ""
     
     print( f"AFTER TOKENS: {new_tokens}" )
+    return( new_tokens )
+
 
 def edit_morse_file_equivalent( file_name, morse_string ):
     """Creates/Edits a file to be the morse code equivalent of it"""
@@ -93,11 +97,15 @@ def edit_morse_file_equivalent( file_name, morse_string ):
     
     file.close( )
 
+cnf_morse_dict = dictionary_creation( morse_grammar.chomsky_normal_form( ).productions( ) )
 my_input = morse_english_input_collector( "FILES\\Morse_Code_Files\\english_1.txt" )
 morse =  morse_code_equivalent( my_input )
 edit_morse_file_equivalent( "FILES\\Morse_Code_Files\\morse_1.txt", morse )
-#print( f"My INPUT: {my_input}" )
-morse_tokenizer( morse )
+
+my_input = morse_english_input_collector( "FILES\\Morse_Code_Files\\morse_1.txt" )
+tokens = morse_tokenizer( my_input )
+
+print( cyk_parser( cnf_morse_dict, tokens ) )
 
 print( f"MORSE: {morse}" )
 print( f"ENGLISH: {english_equivalent( morse )}")
