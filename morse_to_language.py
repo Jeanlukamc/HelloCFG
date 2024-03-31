@@ -35,7 +35,7 @@ def english_equivalent( morse_code ):
     message = message.strip( )
     return( message )
 
-def morse_input_collector( input_file ):
+def morse_english_input_collector( input_file ):
     """Collects the input from the file"""
     result = ""
 

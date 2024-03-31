@@ -10,3 +10,5 @@
 <return>
 <switch>
 <print>
+<equal>
+<equal><equal>
