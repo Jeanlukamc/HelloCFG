@@ -7,7 +7,21 @@ from nltk import CFG
 
 morse_grammar = CFG.fromstring(
     """
-    S -> TEXT
+    S -> EXPRESSION
+
+    EXPRESSION -> EXPRESSION ADDITION TERM | EXPRESSION SUBTRACTION TERM | TERM
+    TERM -> TERM MULTIPLICATION FACTOR | TERM DIVISION FACTOR | FACTOR
+    FACTOR -> OPEN_PARENTHESIS EXPRESSION CLOSE_PARENTHESIS | FACTOR POWER FACTOR | TEXT
+
+    OPEN_PARENTHESIS -> '(#'
+    CLOSE_PARENTHESIS -> ')#'
+    ADDITION -> '<#.-#-..#-..#>#'
+    SUBTRACTION -> '<#...#..-#-...#>#'
+    MULTIPLICATION -> '<#--#..-#.-..#-#>#'
+    DIVISION -> '<#-..#..#...-#>#'
+    POWER -> '<#.--.#---#.--#.#.-.#>#'
+
+
     TEXT -> LETTERS TEXT | NUMBERS TEXT | LETTERS | NUMBERS
     LETTERS -> '.-#' | '-...#' | '-.-.#' | '-..#' | '.#' | '..-.#' | '--.#' | '....#' | '..#' | '.---#' | '-.-#' | '.-..#' | '--#' | '-.#' | '---#' | '.--.#' | '--.-#' | '.-.#' | '...#' | '-#' | '..-#' | '...-#' | '.--#' | '-..-#' | '-.--#' | '--..#'
     NUMBERS -> '-----#' | '.----#' | '..---#' | '...--#' | '....-#' | '.....#' | '-....#' | '--...#' | '---..#' | '----.#'

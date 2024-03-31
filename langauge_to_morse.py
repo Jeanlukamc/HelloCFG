@@ -34,13 +34,14 @@ RESERVED LIST BY INDEX:
 - <PRINT>
 - <EQUALS>
 - <EQUALS><EQUALS>
+- <POWER>
 """
 RESERVED_MORSE = [ 
     '<#.--#....#..#.-..#.#>#', '<#..-.#---#.-.#>#', '<#..#..-.#>#',
     '<#.#.-..#...#.#>#', '<#.-#-..#-..#>#', '<#...#..-#-...#>#',
     '<#--#..-#.-..#-#>#', '<#-..#..#...-#>#', '<#--#---#-..#>#', '<#.-.#.#-#..-#.-.#-.#>#',
     '<#...#.--#..#-#-.-.#....#>#', '<#.--.#.-.#..#-.#-#>#', '<#.#--.-#..-#.-#.-..#...#>#',
-    '<#.#--.-#..-#.-#.-..#...#>#<#.#--.-#..-#.-#.-..#...#>#'   
+    '<#.#--.-#..-#.-#.-..#...#>#<#.#--.-#..-#.-#.-..#...#>#', '<#.--.#---#.--#.#.-.#>#'
 ]
 
 
@@ -86,7 +87,7 @@ def morse_tokenizer( string ):
                     new_tokens.append( morse_token )
                     morse_token = ""
     
-    print( f"AFTER TOKENS: {new_tokens}" )
+    print( f"TOKENS: {new_tokens}" )
     return( new_tokens )
 
 
@@ -97,16 +98,16 @@ def edit_morse_file_equivalent( file_name, morse_string ):
     
     file.close( )
 
-cnf_morse_dict = dictionary_creation( morse_grammar.chomsky_normal_form( ).productions( ) )
-my_input = morse_english_input_collector( "FILES\\Morse_Code_Files\\english_1.txt" )
-morse =  morse_code_equivalent( my_input )
-edit_morse_file_equivalent( "FILES\\Morse_Code_Files\\morse_1.txt", morse )
+#cnf_morse_dict = dictionary_creation( morse_grammar.chomsky_normal_form( ).productions( ) )
+#my_input = morse_english_input_collector( "FILES\\Morse_Code_Files\\english_1.txt" )
+#morse =  morse_code_equivalent( my_input )
+#edit_morse_file_equivalent( "FILES\\Morse_Code_Files\\morse_1.txt", morse )
 
-my_input = morse_english_input_collector( "FILES\\Morse_Code_Files\\morse_1.txt" )
-tokens = morse_tokenizer( my_input )
+#my_input = morse_english_input_collector( "FILES\\Morse_Code_Files\\morse_1.txt" )
+#tokens = morse_tokenizer( my_input )
 
-print( cyk_parser( cnf_morse_dict, tokens ) )
+#print( cyk_parser( cnf_morse_dict, tokens ) )
 
-print( f"MORSE: {morse}" )
-print( f"ENGLISH: {english_equivalent( morse )}")
+#print( f"MORSE: {morse}" )
+#print( f"ENGLISH: {english_equivalent( morse )}")
 #main( )

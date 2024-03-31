@@ -9,7 +9,11 @@ from morse_to_language import english_equivalent, morse_english_input_collector
 from langauge_to_morse import morse_code_equivalent, edit_morse_file_equivalent, morse_tokenizer
 from Grammars import morse_grammar
 
-@pytest.mark.parametrize( "file, string", [( "FILES\\Morse_Code_Files\\english_1.txt", 'WELCOME TO THE 1ST TEST' ) ] )
+test = False
+
+@pytest.mark.skipif( test == True, reason="Don't want to test right now!" )
+@pytest.mark.parametrize( "file, string", [( "FILES\\Morse_Code_Files\\english_1.txt", 'WELCOME TO THE 1ST TEST' ),
+                                           ( "FILES\\Morse_Code_Files\\english_2.txt", '( ALPHA <MULT> (BETA <ADD> CHARLIE) ) <POWER> ( ALPHA <DIV> (BETA <SUB> CHARLIE) )' )] )
 def test_input_collector( file, string ):
     """Tests that we get the proper input to parse"""
     file_input = morse_english_input_collector( file )
@@ -18,7 +22,9 @@ def test_input_collector( file, string ):
     print( f"Test #1 ( Valid Input Collection Test ) | File: [{file}] -> Expected Result: {string} | Result: {file_input == string} | PASSED")
     print( "--------------------------------------------------------------------------------------------------------------------------------------\n" )
 
-@pytest.mark.parametrize( "file, string", [( "FILES\\Morse_Code_Files\\english_1.txt", 'WELCOME TO THE 1ST TEST' ) ] )
+@pytest.mark.skipif( test == True, reason="Don't want to test right now!" )
+@pytest.mark.parametrize( "file, string", [( "FILES\\Morse_Code_Files\\english_1.txt", 'WELCOME TO THE 1ST TEST' ),
+                                           ( "FILES\\Morse_Code_Files\\english_2.txt", '( ALPHA <MULT> (BETA <ADD> CHARLIE) ) <POWER> ( ALPHA <DIV> (BETA <SUB> CHARLIE) )' )] )
 def test_language_to_morse_to_language_translation( file, string ):
     """Tests that the conversion from english to morse makes sense when translated back"""
     file_input = morse_english_input_collector( file )
@@ -30,7 +36,9 @@ def test_language_to_morse_to_language_translation( file, string ):
     print( f"Test #2 ( English -> Morse -> English ) | File: [{file}] -> Expected Result: {string} | Result: {english_sentence == string} | PASSED")
     print( "--------------------------------------------------------------------------------------------------------------------------------------\n" )
 
-@pytest.mark.parametrize( "file_1, file_2, string", [( "FILES\\Morse_Code_Files\\english_1.txt", "FILES\\Morse_Code_Files\\morse_1.txt", ".--#.#.-..#-.-.#---#--#.#/-#---#/-#....#.#/.----#...#-#/-#.#...#-#/" ) ] )
+@pytest.mark.skipif( test == True, reason="Don't want to test right now!" )
+@pytest.mark.parametrize( "file_1, file_2, string", [( "FILES\\Morse_Code_Files\\english_1.txt", "FILES\\Morse_Code_Files\\morse_1.txt", ".--#.#.-..#-.-.#---#--#.#/-#---#/-#....#.#/.----#...#-#/-#.#...#-#/" ),
+                                                     ( "FILES\\Morse_Code_Files\\english_2.txt", "FILES\\Morse_Code_Files\\morse_2.txt", "(#/.-#.-..#.--.#....#.-#/<#--#..-#.-..#-#>#/(#-...#.#-#.-#/<#.-#-..#-..#>#/-.-.#....#.-#.-.#.-..#..#.#)#/)#/<#.--.#---#.--#.#.-.#>#/(#/.-#.-..#.--.#....#.-#/<#-..#..#...-#>#/(#-...#.#-#.-#/<#...#..-#-...#>#/-.-.#....#.-#.-.#.-..#..#.#)#/)#/" ) ] )
 def test_make_morse_file_equivalent( file_1, file_2, string ):
     """Tests that we have created an equivalent morse file from the english version"""
     my_input = morse_english_input_collector( file_1 )
@@ -44,7 +52,8 @@ def test_make_morse_file_equivalent( file_1, file_2, string ):
 
 
 cnf_morse_dict = dictionary_creation( morse_grammar.chomsky_normal_form( ).productions( ) )
-@pytest.mark.parametrize( "dictionary, file, test_type, result",  [ ( cnf_morse_dict, "FILES\\Morse_Code_Files\\morse_1.txt", "Alphabet and Letters Test", True ) ] )
+@pytest.mark.parametrize( "dictionary, file, test_type, result",  [ ( cnf_morse_dict, "FILES\\Morse_Code_Files\\morse_1.txt", "Alphabet and Letters Test", True ),
+                                                                    ( cnf_morse_dict, "FILES\\Morse_Code_Files\\morse_2.txt", "Basic Math Operations Test", True ) ] )
 def test_CYK_XML( dictionary, file, test_type, result ):
     """Tests the input strings to make sure they are valid for the language"""
 
