@@ -13,7 +13,8 @@ test = False
 
 @pytest.mark.skipif( test == True, reason="Don't want to test right now!" )
 @pytest.mark.parametrize( "file, string", [( "FILES\\Morse_Code_Files\\english_1.txt", 'WELCOME TO THE 1ST TEST' ),
-                                           ( "FILES\\Morse_Code_Files\\english_2.txt", '( ALPHA <MULT> (BETA <ADD> CHARLIE) ) <POWER> ( ALPHA <DIV> (BETA <SUB> CHARLIE) )' )] )
+                                           ( "FILES\\Morse_Code_Files\\english_2.txt", '( ALPHA <MULT> (BETA <ADD> CHARLIE) ) <POWER> ( ALPHA <DIV> (BETA <SUB> CHARLIE) )' ),
+                                           ( "FILES\\Morse_Code_Files\\english_3.txt", 'VAR <EQUALS><EQUALS> ( A <MULT> B ) VAR2 <EQUALS> VAR <ADD> 2' )] )
 def test_input_collector( file, string ):
     """Tests that we get the proper input to parse"""
     file_input = morse_english_input_collector( file )
@@ -24,7 +25,8 @@ def test_input_collector( file, string ):
 
 @pytest.mark.skipif( test == True, reason="Don't want to test right now!" )
 @pytest.mark.parametrize( "file, string", [( "FILES\\Morse_Code_Files\\english_1.txt", 'WELCOME TO THE 1ST TEST' ),
-                                           ( "FILES\\Morse_Code_Files\\english_2.txt", '( ALPHA <MULT> (BETA <ADD> CHARLIE) ) <POWER> ( ALPHA <DIV> (BETA <SUB> CHARLIE) )' )] )
+                                           ( "FILES\\Morse_Code_Files\\english_2.txt", '( ALPHA <MULT> (BETA <ADD> CHARLIE) ) <POWER> ( ALPHA <DIV> (BETA <SUB> CHARLIE) )' ),
+                                           ( "FILES\\Morse_Code_Files\\english_3.txt", 'VAR <EQUALS><EQUALS> ( A <MULT> B ) VAR2 <EQUALS> VAR <ADD> 2' )] )
 def test_language_to_morse_to_language_translation( file, string ):
     """Tests that the conversion from english to morse makes sense when translated back"""
     file_input = morse_english_input_collector( file )
@@ -38,7 +40,8 @@ def test_language_to_morse_to_language_translation( file, string ):
 
 @pytest.mark.skipif( test == True, reason="Don't want to test right now!" )
 @pytest.mark.parametrize( "file_1, file_2, string", [( "FILES\\Morse_Code_Files\\english_1.txt", "FILES\\Morse_Code_Files\\morse_1.txt", ".--#.#.-..#-.-.#---#--#.#/-#---#/-#....#.#/.----#...#-#/-#.#...#-#/" ),
-                                                     ( "FILES\\Morse_Code_Files\\english_2.txt", "FILES\\Morse_Code_Files\\morse_2.txt", "(#/.-#.-..#.--.#....#.-#/<#--#..-#.-..#-#>#/(#-...#.#-#.-#/<#.-#-..#-..#>#/-.-.#....#.-#.-.#.-..#..#.#)#/)#/<#.--.#---#.--#.#.-.#>#/(#/.-#.-..#.--.#....#.-#/<#-..#..#...-#>#/(#-...#.#-#.-#/<#...#..-#-...#>#/-.-.#....#.-#.-.#.-..#..#.#)#/)#/" ) ] )
+                                                     ( "FILES\\Morse_Code_Files\\english_2.txt", "FILES\\Morse_Code_Files\\morse_2.txt", "(#/.-#.-..#.--.#....#.-#/<#--#..-#.-..#-#>#/(#-...#.#-#.-#/<#.-#-..#-..#>#/-.-.#....#.-#.-.#.-..#..#.#)#/)#/<#.--.#---#.--#.#.-.#>#/(#/.-#.-..#.--.#....#.-#/<#-..#..#...-#>#/(#-...#.#-#.-#/<#...#..-#-...#>#/-.-.#....#.-#.-.#.-..#..#.#)#/)#/" ),
+                                                    ( "FILES\\Morse_Code_Files\\english_3.txt", "FILES\\Morse_Code_Files\\morse_3.txt", "...-#.-#.-.#/<#.#--.-#..-#.-#.-..#...#>#<#.#--.-#..-#.-#.-..#...#>#/(#/.-#/<#--#..-#.-..#-#>#/-...#/)#/...-#.-#.-.#..---#/<#.#--.-#..-#.-#.-..#...#>#/...-#.-#.-.#/<#.-#-..#-..#>#/..---#/" ) ] )
 def test_make_morse_file_equivalent( file_1, file_2, string ):
     """Tests that we have created an equivalent morse file from the english version"""
     my_input = morse_english_input_collector( file_1 )
@@ -53,7 +56,8 @@ def test_make_morse_file_equivalent( file_1, file_2, string ):
 
 cnf_morse_dict = dictionary_creation( morse_grammar.chomsky_normal_form( ).productions( ) )
 @pytest.mark.parametrize( "dictionary, file, test_type, result",  [ ( cnf_morse_dict, "FILES\\Morse_Code_Files\\morse_1.txt", "Alphabet and Letters Test", True ),
-                                                                    ( cnf_morse_dict, "FILES\\Morse_Code_Files\\morse_2.txt", "Basic Math Operations Test", True ) ] )
+                                                                    ( cnf_morse_dict, "FILES\\Morse_Code_Files\\morse_2.txt", "Basic Math Operations Test", True ),
+                                                                    ( cnf_morse_dict, "FILES\\Morse_Code_Files\\morse_3.txt", "Comparison, Assignment, and Multi-Line Test", True )  ] )
 def test_CYK_XML( dictionary, file, test_type, result ):
     """Tests the input strings to make sure they are valid for the language"""
 

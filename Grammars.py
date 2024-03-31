@@ -7,7 +7,14 @@ from nltk import CFG
 
 morse_grammar = CFG.fromstring(
     """
-    S -> EXPRESSION
+    S -> EXPRESSION S | COMPARISON S | ASSIGNMENT S
+    S -> EXPRESSION | COMPARISON | ASSIGNMENT
+
+    ASSIGNMENT -> TEXT EQUALS EXPRESSION
+    EQUALS -> '<#.#--.-#..-#.-#.-..#...#>#'
+
+    COMPARISON -> EXPRESSION EQUALS_EQUALS EXPRESSION
+    EQUALS_EQUALS -> '<#.#--.-#..-#.-#.-..#...#>#<#.#--.-#..-#.-#.-..#...#>#'
 
     EXPRESSION -> EXPRESSION ADDITION TERM | EXPRESSION SUBTRACTION TERM | TERM
     TERM -> TERM MULTIPLICATION FACTOR | TERM DIVISION FACTOR | FACTOR

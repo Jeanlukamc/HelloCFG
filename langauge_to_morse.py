@@ -98,16 +98,19 @@ def edit_morse_file_equivalent( file_name, morse_string ):
     
     file.close( )
 
-#cnf_morse_dict = dictionary_creation( morse_grammar.chomsky_normal_form( ).productions( ) )
-#my_input = morse_english_input_collector( "FILES\\Morse_Code_Files\\english_1.txt" )
-#morse =  morse_code_equivalent( my_input )
-#edit_morse_file_equivalent( "FILES\\Morse_Code_Files\\morse_1.txt", morse )
+cnf_morse_dict = dictionary_creation( morse_grammar.chomsky_normal_form( ).productions( ) )
+file_1 = "FILES\\Morse_Code_Files\\english_3.txt"
+file_2 = "FILES\\Morse_Code_Files\\morse_3.txt"
 
-#my_input = morse_english_input_collector( "FILES\\Morse_Code_Files\\morse_1.txt" )
-#tokens = morse_tokenizer( my_input )
+my_input = morse_english_input_collector( file_1 )
+morse =  morse_code_equivalent( my_input )
+edit_morse_file_equivalent( file_2, morse )
 
-#print( cyk_parser( cnf_morse_dict, tokens ) )
+my_input = morse_english_input_collector( file_2 )
+tokens = morse_tokenizer( my_input )
 
-#print( f"MORSE: {morse}" )
-#print( f"ENGLISH: {english_equivalent( morse )}")
+print( cyk_parser( cnf_morse_dict, tokens ) )
+
+print( f"MORSE: {morse}" )
+print( f"ENGLISH: {english_equivalent( morse )}")
 #main( )
