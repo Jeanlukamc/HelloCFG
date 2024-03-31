@@ -7,10 +7,13 @@ from nltk import CFG
 
 morse_grammar = CFG.fromstring(
     """
-    S -> EXPRESSION S | COMPARISON S | ASSIGNMENT S
-    S -> EXPRESSION | COMPARISON | ASSIGNMENT
+    S -> EXPRESSION S | COMPARISON S | ASSIGNMENT S | CONSTANT S
+    S -> EXPRESSION | COMPARISON | ASSIGNMENT | CONSTANT
 
-    ASSIGNMENT -> TEXT EQUALS EXPRESSION
+    CONSTANT -> CONSTANT_NAME VARIABLE EQUALS STRING | CONSTANT_NAME VARIABLE EQUALS DIGITS
+    CONSTANT_NAME -> '<#-.-.#---#-.#...#-#>#'
+
+    ASSIGNMENT -> VARIABLE EQUALS EXPRESSION
     EQUALS -> '<#.#--.-#..-#.-#.-..#...#>#'
 
     COMPARISON -> EXPRESSION EQUALS_EQUALS EXPRESSION
@@ -18,10 +21,12 @@ morse_grammar = CFG.fromstring(
 
     EXPRESSION -> EXPRESSION ADDITION TERM | EXPRESSION SUBTRACTION TERM | TERM
     TERM -> TERM MULTIPLICATION FACTOR | TERM DIVISION FACTOR | FACTOR
-    FACTOR -> OPEN_PARENTHESIS EXPRESSION CLOSE_PARENTHESIS | FACTOR POWER FACTOR | TEXT
+    FACTOR -> OPEN_PARENTHESIS EXPRESSION CLOSE_PARENTHESIS | FACTOR POWER FACTOR | VARIABLE | STRING | DIGITS
 
     OPEN_PARENTHESIS -> '(#'
     CLOSE_PARENTHESIS -> ')#'
+    UNDERSCORE -> '_#'
+    QUOTE -> '"#'
     ADDITION -> '<#.-#-..#-..#>#'
     SUBTRACTION -> '<#...#..-#-...#>#'
     MULTIPLICATION -> '<#--#..-#.-..#-#>#'
@@ -29,7 +34,17 @@ morse_grammar = CFG.fromstring(
     POWER -> '<#.--.#---#.--#.#.-.#>#'
 
 
-    TEXT -> LETTERS TEXT | NUMBERS TEXT | LETTERS | NUMBERS
+    VARIABLE -> TEXT_START
+    TEXT_START -> LETTERS TEXT_END | UNDERSCORE TEXT_END | LETTERS | UNDERSCORE
+    TEXT_END -> LETTERS TEXT_END | DIGIT TEXT_END | UNDERSCORE TEXT_END | LETTERS | DIGITS | UNDERSCORE
+
+    STRING -> QUOTE STRING_CONTENT QUOTE | QUOTE DIGITS STRING_CONTENT QUOTE
+    STRING_CONTENT -> LETTERS STRING_CONTENT | NUMBERS STRING_CONTENT | SPECIAL_CHARACTERS STRING_CONTENT
+    STRING_CONTENT -> LETTERS | NUMBERS | SPECIAL_CHARACTERS
+    
+    DIGITS -> NUMBERS DIGIT | NUMBERS
+    
+    SPECIAL_CHARACTERS -> OPEN_PARENTHESIS | CLOSE_PARENTHESIS | UNDERSCORE
     LETTERS -> '.-#' | '-...#' | '-.-.#' | '-..#' | '.#' | '..-.#' | '--.#' | '....#' | '..#' | '.---#' | '-.-#' | '.-..#' | '--#' | '-.#' | '---#' | '.--.#' | '--.-#' | '.-.#' | '...#' | '-#' | '..-#' | '...-#' | '.--#' | '-..-#' | '-.--#' | '--..#'
     NUMBERS -> '-----#' | '.----#' | '..---#' | '...--#' | '....-#' | '.....#' | '-....#' | '--...#' | '---..#' | '----.#'
 

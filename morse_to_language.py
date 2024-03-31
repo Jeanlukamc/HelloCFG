@@ -14,7 +14,7 @@ MORSE_CODE_DICT = {
     '<': '<', '>' : '>'
     }
 
-EXCEPTIONS = [ '<', '>', '(', ')', ':' ]
+EXCEPTIONS = [ '<', '>', '(', ')', ':', '"', "_" ]
 
 def english_equivalent( morse_code ):
     """Gives the equivalent """
