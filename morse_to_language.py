@@ -11,10 +11,8 @@ MORSE_CODE_DICT = {
     '--..': 'Z', '.----': '1', '..---': '2', '...--': '3',
     '....-': '4', '.....': '5', '-....': '6', '--...': '7',
     '---..': '8', '----.': '9', '-----': '0', '/': ' ',
-    '<': '<', '>' : '>'
+    '<': '<', '>' : '>', '(': '(', ')' : ')', ':' : ':', '"' : '"', "_" : '_'
     }
-
-EXCEPTIONS = [ '<', '>', '(', ')', ':', '"', "_" ]
 
 def english_equivalent( morse_code ):
     """Gives the equivalent """
@@ -27,8 +25,6 @@ def english_equivalent( morse_code ):
         for letter in letters:
             if ( letter in MORSE_CODE_DICT ):
                 message += MORSE_CODE_DICT[ letter ]
-            elif ( letter in EXCEPTIONS ):
-                message += letter
             else:
                 message += "<INVALID>"
         message += " "
