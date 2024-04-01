@@ -1,9 +1,13 @@
 <IF> (A <EQUALS><EQUALS> B):
+{
 	<PRINT> ( "WIN" )
-
-VAR_1 <EQUALS> "TEST"
+}
 
 <IF> "T" <EQUALS><EQUALS> "T":
+{
 	<PRINT> ( "WIN" )
+}
 <ELSE> :
+{
 	<PRINT> ( "LOSE" )
+}
