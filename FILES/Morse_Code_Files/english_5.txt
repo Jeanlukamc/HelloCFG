@@ -1,0 +1,13 @@
+<IF> (A <EQUALS><EQUALS> B):
+{
+	<PRINT> ( "WIN" )
+}
+
+<IF> "T" <EQUALS><EQUALS> "T":
+{
+	<PRINT> ( "WIN" )
+}
+<ELSE> :
+{
+	<PRINT> ( "LOSE" )
+}

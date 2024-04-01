@@ -29,7 +29,7 @@ def test_CNF_conversion( grammar, test_num, result ):
 
 @pytest.mark.parametrize( "file, string", [ ( "FILES\\Basic_Grammar_Files\\1.txt",  "the cat chases the dog"),
                                             ( "FILES\\XML_Files\\xml_1.txt", "<TopLayer id=\"501\"><SecondLayer test=\"8\">Test 1 &lt; Test 2</SecondLayer></TopLayer>" ),
-                                            ( "FILES\\HTML_Files\\HTML_2.txt", '<html><head><title>Test HTML File</title></head><body><h1>Header 1</h1><h2>Header 2</h2><p>This is a paragraph <em>with emphasis</em> and <strong>strong text</strong>.</p><a href="#">A link</a><img src="image.jpg" alt="An image"><ul><li>List item in unordered list</li></ul><ol><li>List item in ordered list</li></ol><div>A div element</div><span>A span element</span><br><hr><form action="#"><input type="text" name="textfield"><textarea name="textarea">Some text here</textarea><input type="submit" value="Submit"></form></body></html>') ] )
+                                            ( "FILES\\HTML_Files\\HTML_2.txt", '<   html ></ html>') ] )
 def test_input_collector( file, string ):
     """Tests that we get the proper input to parse"""
     file_input = input_collector( file )

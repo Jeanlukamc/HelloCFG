@@ -1,0 +1,17 @@
+<FOR> _I <IN> <RANGE> (0,6,1):
+{
+	<IF> _I <MOD> 2 <EQUALS><EQUALS> 0:
+	{
+		S <EQUALS> _I
+		<PRINT>(S)
+	}
+	<FOR> I <IN> VAR:
+	{
+		A <EQUALS> 0
+		<WHILE> A <LESS> _I:
+		{
+			A <ADD> 1
+		}
+	}
+}
+<PRINT>("DONE")

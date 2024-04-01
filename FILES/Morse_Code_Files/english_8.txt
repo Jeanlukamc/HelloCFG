@@ -1,0 +1,24 @@
+<DEF> F1 ( ):
+{
+	F1()
+	A <EQUALS> F2(2)
+}
+
+<DEF> F2 ( P1 ):
+{
+	<IF> P1 <GREATER> 4 :
+	{
+		<RETURN> F2( 4 )
+	}
+	<ELSE>:
+	{
+		<SWITCH> P1:
+		{
+			<CASE> 2:
+			{
+				<RETURN> 2
+			}
+		}
+		<RETURN> 4
+	}
+} 
