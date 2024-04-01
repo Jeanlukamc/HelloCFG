@@ -1,9 +1,9 @@
-<DEF> _F1 ( ):
-{
-	VAR <EQUALS> 4
-}
+<IF> (A <EQUALS><EQUALS> B):
+	<PRINT> ( "WIN" )
 
-<DEF> _F2 ( P1, P2<EQUALS>"YES", P3<EQUALS>55 ):
-{
-	<RETURN> P2, VAR <ADD> 5
-} 
+VAR_1 <EQUALS> "TEST"
+
+<IF> "T" <EQUALS><EQUALS> "T":
+	<PRINT> ( "WIN" )
+<ELSE> :
+	<PRINT> ( "LOSE" )

@@ -1,0 +1,9 @@
+<DEF> _F1 ( ):
+{
+	VAR <EQUALS> 4
+}
+
+<DEF> _F2 ( P1, P2<EQUALS>"YES", P3<EQUALS>55 ):
+{
+	<RETURN> P2, VAR <ADD> 5
+} 

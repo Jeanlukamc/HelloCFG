@@ -33,7 +33,6 @@ RESERVED LIST BY INDEX:
 - <RETURN>
 - <SWITCH>
 - <EQUALS>
-- <EQUALS><EQUALS>
 - <POWER>
 - <CONST>
 - <PRINT>
@@ -43,8 +42,7 @@ RESERVED_MORSE = [
     '<#.--#....#..#.-..#.#>#', '<#..-.#---#.-.#>#', '<#..#..-.#>#',
     '<#.#.-..#...#.#>#', '<#.-#-..#-..#>#', '<#...#..-#-...#>#',
     '<#--#..-#.-..#-#>#', '<#-..#..#...-#>#', '<#--#---#-..#>#', '<#.-.#.#-#..-#.-.#-.#>#',
-    '<#...#.--#..#-#-.-.#....#>#', '<#.#--.-#..-#.-#.-..#...#>#',
-    '<#.#--.-#..-#.-#.-..#...#>#<#.#--.-#..-#.-#.-..#...#>#', '<#.--.#---#.--#.#.-.#>#',
+    '<#...#.--#..#-#-.-.#....#>#', '<#.#--.-#..-#.-#.-..#...#>#', '<#.--.#---#.--#.#.-.#>#',
     '<#-.-.#---#-.#...#-#>#', '<#.--.#.-.#..#-.#-#>#', '<#-..#.#..-.#>#'
 ]
 
@@ -107,7 +105,7 @@ def edit_morse_file_equivalent( file_name, morse_string ):
     file.close( )
 
 cnf_morse_dict = dictionary_creation( morse_grammar.chomsky_normal_form( ).productions( ) )
-file_number = 4
+file_number = 5
 file_1 = "FILES\\Morse_Code_Files\\english_" + str( file_number) + ".txt"
 file_2 = "FILES\\Morse_Code_Files\\morse_" + str( file_number) + ".txt"
 
@@ -119,7 +117,7 @@ edit_morse_file_equivalent( file_2, morse )
 my_input = morse_english_input_collector( file_2 )
 tokens = morse_tokenizer( my_input )
 
-print( cyk_parser( cnf_morse_dict, tokens ) )
+#print( cyk_parser( cnf_morse_dict, tokens ) )
 
 print( f"MORSE: {morse}" )
 print( f"ENGLISH: {english_equivalent( morse )}")
