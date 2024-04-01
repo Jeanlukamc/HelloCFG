@@ -5,5 +5,13 @@
 		S <EQUALS> _I
 		<PRINT>(S)
 	}
-	<PRINT>(S)
+	<FOR> I <IN> VAR:
+	{
+		A <EQUALS> 0
+		<WHILE> A <LESS> _I:
+		{
+			A <ADD> 1
+		}
+	}
 }
+<PRINT>("DONE")

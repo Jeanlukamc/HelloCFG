@@ -16,7 +16,8 @@ test = False
                                            ( "FILES\\Morse_Code_Files\\english_2.txt", '( ALPHA <MULT> (BETA <ADD> CHARLIE) ) <POWER> ( ALPHA <DIV> (BETA <SUB> CHARLIE) )' ),
                                            ( "FILES\\Morse_Code_Files\\english_3.txt", 'VAR <EQUALS><EQUALS> ( A <MULT> B ) VAR2 <EQUALS> VAR <ADD> 2 <CONST> _CONST <EQUALS> "TEXT" <CONST> T_1 <EQUALS> 55' ),
                                            ( "FILES\\Morse_Code_Files\\english_4.txt", '<PRINT>("OMG" ) <PRINT>(5) <PRINT>( V1 ) <PRINT>( "M" <ADD> 5) <PRINT>( V1 <ADD> "50C" )' ),
-                                           ( "FILES\\Morse_Code_Files\\english_5.txt", '<IF> (A <EQUALS><EQUALS> B): { <PRINT> ( "WIN" ) }  <IF> "T" <EQUALS><EQUALS> "T": { <PRINT> ( "WIN" ) } <ELSE> : { <PRINT> ( "LOSE" ) }' ) ] )
+                                           ( "FILES\\Morse_Code_Files\\english_5.txt", '<IF> (A <EQUALS><EQUALS> B): { <PRINT> ( "WIN" ) }  <IF> "T" <EQUALS><EQUALS> "T": { <PRINT> ( "WIN" ) } <ELSE> : { <PRINT> ( "LOSE" ) }' ),
+                                           ( "FILES\\Morse_Code_Files\\english_6.txt", '<FOR> _I <IN> <RANGE> (0,6,1): { <IF> _I <MOD> 2 <EQUALS><EQUALS> 0: { S <EQUALS> _I <PRINT>(S) } <FOR> I <IN> VAR: { A <EQUALS> 0 <WHILE> A <LESS> _I: { A <ADD> 1 } } } <PRINT>("DONE")' ) ] )
 def test_input_collector( file, string ):
     """Tests that we get the proper input to parse"""
     file_input = morse_english_input_collector( file )
@@ -30,7 +31,8 @@ def test_input_collector( file, string ):
                                            ( "FILES\\Morse_Code_Files\\english_2.txt", '(  ALPHA <MULT>  ( BETA <ADD>  CHARLIE)  )  <POWER>  (  ALPHA <DIV>  ( BETA <SUB>  CHARLIE)  )' ),
                                            ( "FILES\\Morse_Code_Files\\english_3.txt", 'VAR <EQUALS> <EQUALS>  (  A <MULT>  B )  VAR2 <EQUALS>  VAR <ADD>  2 <CONST>  _ CONST <EQUALS>  " TEXT"  <CONST>  T_ 1 <EQUALS>  55' ),
                                            ( "FILES\\Morse_Code_Files\\english_4.txt", '<PRINT> ( " OMG"  )  <PRINT> ( 5)  <PRINT> (  V1 )  <PRINT> (  " M"  <ADD>  5)  <PRINT> (  V1 <ADD>  " 50C"  )' ),
-                                           ( "FILES\\Morse_Code_Files\\english_5.txt", '<IF>  ( A <EQUALS> <EQUALS>  B) :  {  <PRINT>  (  " WIN"  )  }   <IF>  " T"  <EQUALS> <EQUALS>  " T" :  {  <PRINT>  (  " WIN"  )  }  <ELSE>  :  {  <PRINT>  (  " LOSE"  )  }' ) ] )
+                                           ( "FILES\\Morse_Code_Files\\english_5.txt", '<IF>  ( A <EQUALS> <EQUALS>  B) :  {  <PRINT>  (  " WIN"  )  }   <IF>  " T"  <EQUALS> <EQUALS>  " T" :  {  <PRINT>  (  " WIN"  )  }  <ELSE>  :  {  <PRINT>  (  " LOSE"  )  }' ),
+                                           ( "FILES\\Morse_Code_Files\\english_6.txt", '<FOR>  _ I <IN>  <RANGE>  ( 0, 6, 1) :  {  <IF>  _ I <MOD>  2 <EQUALS> <EQUALS>  0:  {  S <EQUALS>  _ I <PRINT> ( S)  }  <FOR>  I <IN>  VAR:  {  A <EQUALS>  0 <WHILE>  A <LESS>  _ I:  {  A <ADD>  1 }  }  }  <PRINT> ( " DONE" )' ) ] )
 def test_language_to_morse_to_language_translation( file, string ):
     """Tests that the conversion from english to morse makes sense when translated back"""
     file_input = morse_english_input_collector( file )
@@ -47,7 +49,8 @@ def test_language_to_morse_to_language_translation( file, string ):
                                                      ( "FILES\\Morse_Code_Files\\english_2.txt", "FILES\\Morse_Code_Files\\morse_2.txt", '(#//.-#.-..#.--.#....#.-#/<#--#..-#.-..#-#>#//(#/-...#.#-#.-#/<#.-#-..#-..#>#//-.-.#....#.-#.-.#.-..#..#.#)#//)#//<#.--.#---#.--#.#.-.#>#//(#//.-#.-..#.--.#....#.-#/<#-..#..#...-#>#//(#/-...#.#-#.-#/<#...#..-#-...#>#//-.-.#....#.-#.-.#.-..#..#.#)#//)#//' ),
                                                      ( "FILES\\Morse_Code_Files\\english_3.txt", "FILES\\Morse_Code_Files\\morse_3.txt", '...-#.-#.-.#/<#.#--.-#..-#.-#.-..#...#>#/<#.#--.-#..-#.-#.-..#...#>#//(#//.-#/<#--#..-#.-..#-#>#//-...#/)#//...-#.-#.-.#..---#/<#.#--.-#..-#.-#.-..#...#>#//...-#.-#.-.#/<#.-#-..#-..#>#//..---#/<#-.-.#---#-.#...#-#>#//_#/-.-.#---#-.#...#-#/<#.#--.-#..-#.-#.-..#...#>#//"#/-#.#-..-#-#"#//<#-.-.#---#-.#...#-#>#//-#_#/.----#/<#.#--.-#..-#.-#.-..#...#>#//.....#.....#/' ),
                                                      ( "FILES\\Morse_Code_Files\\english_4.txt", "FILES\\Morse_Code_Files\\morse_4.txt", '<#.--.#.-.#..#-.#-#>#/(#/"#/---#--#--.#"#//)#//<#.--.#.-.#..#-.#-#>#/(#/.....#)#//<#.--.#.-.#..#-.#-#>#/(#//...-#.----#/)#//<#.--.#.-.#..#-.#-#>#/(#//"#/--#"#//<#.-#-..#-..#>#//.....#)#//<#.--.#.-.#..#-.#-#>#/(#//...-#.----#/<#.-#-..#-..#>#//"#/.....#-----#-.-.#"#//)#//' ),
-                                                     ( "FILES\\Morse_Code_Files\\english_5.txt", "FILES\\Morse_Code_Files\\morse_5.txt", '<#..#..-.#>#//(#/.-#/<#.#--.-#..-#.-#.-..#...#>#/<#.#--.-#..-#.-#.-..#...#>#//-...#)#/:#//{#//<#.--.#.-.#..#-.#-#>#//(#//"#/.--#..#-.#"#//)#//}#///<#..#..-.#>#//"#/-#"#//<#.#--.-#..-#.-#.-..#...#>#/<#.#--.-#..-#.-#.-..#...#>#//"#/-#"#/:#//{#//<#.--.#.-.#..#-.#-#>#//(#//"#/.--#..#-.#"#//)#//}#//<#.#.-..#...#.#>#//:#//{#//<#.--.#.-.#..#-.#-#>#//(#//"#/.-..#---#...#.#"#//)#//}#//' ) ] )
+                                                     ( "FILES\\Morse_Code_Files\\english_5.txt", "FILES\\Morse_Code_Files\\morse_5.txt", '<#..#..-.#>#//(#/.-#/<#.#--.-#..-#.-#.-..#...#>#/<#.#--.-#..-#.-#.-..#...#>#//-...#)#/:#//{#//<#.--.#.-.#..#-.#-#>#//(#//"#/.--#..#-.#"#//)#//}#///<#..#..-.#>#//"#/-#"#//<#.#--.-#..-#.-#.-..#...#>#/<#.#--.-#..-#.-#.-..#...#>#//"#/-#"#/:#//{#//<#.--.#.-.#..#-.#-#>#//(#//"#/.--#..#-.#"#//)#//}#//<#.#.-..#...#.#>#//:#//{#//<#.--.#.-.#..#-.#-#>#//(#//"#/.-..#---#...#.#"#//)#//}#//' ),
+                                                     ( "FILES\\Morse_Code_Files\\english_6.txt", "FILES\\Morse_Code_Files\\morse_6.txt", '<#..-.#---#.-.#>#//_#/..#/<#..#-.#>#//<#.-.#.-#-.#--.#.#>#//(#/-----#,#/-....#,#/.----#)#/:#//{#//<#..#..-.#>#//_#/..#/<#--#---#-..#>#//..---#/<#.#--.-#..-#.-#.-..#...#>#/<#.#--.-#..-#.-#.-..#...#>#//-----#:#//{#//...#/<#.#--.-#..-#.-#.-..#...#>#//_#/..#/<#.--.#.-.#..#-.#-#>#/(#/...#)#//}#//<#..-.#---#.-.#>#//..#/<#..#-.#>#//...-#.-#.-.#:#//{#//.-#/<#.#--.-#..-#.-#.-..#...#>#//-----#/<#.--#....#..#.-..#.#>#//.-#/<#.-..#.#...#...#>#//_#/..#:#//{#//.-#/<#.-#-..#-..#>#//.----#/}#//}#//}#//<#.--.#.-.#..#-.#-#>#/(#/"#/-..#---#-.#.#"#/)#//' ) ] )
 def test_make_morse_file_equivalent( file_1, file_2, string ):
     """Tests that we have created an equivalent morse file from the english version"""
     my_input = morse_english_input_collector( file_1 )
@@ -65,7 +68,8 @@ cnf_morse_dict = dictionary_creation( morse_grammar.chomsky_normal_form( ).produ
                                                                     ( cnf_morse_dict, "FILES\\Morse_Code_Files\\morse_2.txt", "Basic Math Operations Test", True ),
                                                                     ( cnf_morse_dict, "FILES\\Morse_Code_Files\\morse_3.txt", "Comparison, Assignment, Constants, and Multi-Line Test", True ),
                                                                     ( cnf_morse_dict, "FILES\\Morse_Code_Files\\morse_4.txt", "Printing Test", True ),
-                                                                    ( cnf_morse_dict, "FILES\\Morse_Code_Files\\morse_5.txt", "If-Else Statement Tests", True )  ] )
+                                                                    ( cnf_morse_dict, "FILES\\Morse_Code_Files\\morse_5.txt", "If-Else Statement Tests", True ),
+                                                                    ( cnf_morse_dict, "FILES\\Morse_Code_Files\\morse_6.txt", "For and While Loops and Nesting Tests", True ) ] )
 def test_CYK_XML( dictionary, file, test_type, result ):
     """Tests the input strings to make sure they are valid for the language"""
 
