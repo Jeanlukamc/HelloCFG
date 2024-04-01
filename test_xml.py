@@ -10,7 +10,7 @@ from Grammars import xml
 
 #Generate the dictionary once so the process doesn't need to be repeated
 cnf_xml_dict = dictionary_creation( xml.chomsky_normal_form( ).productions( ) )
-@pytest.mark.parametrize( "dictionary, string, test_type, result", [( cnf_xml_dict, "<CustomTag> Testing Letters and 12345 </CustomTag>", "Normal Tag Test", False ),
+@pytest.mark.parametrize( "dictionary, string, test_type, result", [( cnf_xml_dict, "<CustomTag> Testing Letters and 12345 </CustomTag>", "Normal Tag Test", True ),
                                                       ( cnf_xml_dict, "<!-- Welcome To The Jungle   -->", "Comment Test", True),
                                                       ( cnf_xml_dict, "<b><!-- test comment --><d> content </d></b>", "Normal Tag and Comment Test", True),
                                                       ( cnf_xml_dict, "<123> text </123>", "Numbers as Tag Names Test", False),
