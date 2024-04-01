@@ -4,25 +4,26 @@
 
 import pytest
 from nltk import CFG
-from CYK_Parser import dictionary_creation, cyk_parser
+from CYK_Parser import dictionary_creation, input_collector, cyk_parser
 from Grammars import xml
 
 
 #Generate the dictionary once so the process doesn't need to be repeated
 cnf_xml_dict = dictionary_creation( xml.chomsky_normal_form( ).productions( ) )
-@pytest.mark.parametrize( "dictionary, string, test_type, result", [( cnf_xml_dict, "<CustomTag> Testing Letters and 12345 </CustomTag>", "Normal Tag Test", True ),
-                                                      ( cnf_xml_dict, "<!-- Welcome To The Jungle   -->", "Comment Test", True),
-                                                      ( cnf_xml_dict, "<b><!-- test comment --><d> content </d></b>", "Normal Tag and Comment Test", True),
-                                                      ( cnf_xml_dict, "<123> text </123>", "Numbers as Tag Names Test", False),
-                                                      ( cnf_xml_dict, "< space > text </ space >", "Spaces Between Tag Names Test", False),
-                                                      ( cnf_xml_dict, "<b>  comparison &lt;&gt;&amp;&apos;&quot; </b>", "Use of Entity References within content", True),
-                                                      ( cnf_xml_dict, "<b id=\"501\" message=\"Hello World\"></b>", "Use of Attributes", True),
-                                                      ( cnf_xml_dict, "<TopLayer id=\"501\"><SecondLayer test=\"8\">Test 1 &lt; Test 2</SecondLayer></TopLayer>", "Combine Everything", True),
+@pytest.mark.parametrize( "dictionary, file, test_type, result", [( cnf_xml_dict, "FILES\\XML_Files\\xml_1.txt", "Normal Tag Test", True ),
+                                                      ( cnf_xml_dict, "FILES\\XML_Files\\xml_2.txt", "Comment Test", True),
+                                                      ( cnf_xml_dict, "FILES\\XML_Files\\xml_3.txt", "Normal Tag and Comment Test", True),
+                                                      ( cnf_xml_dict, "FILES\\XML_Files\\xml_4.txt", "Numbers as Tag Names Test", False),
+                                                      ( cnf_xml_dict, "FILES\\XML_Files\\xml_5.txt", "Spaces Between Tag Names Test", False),
+                                                      ( cnf_xml_dict, "FILES\\XML_Files\\xml_6.txt", "Use of Entity References within content", True),
+                                                      ( cnf_xml_dict, "FILES\\XML_Files\\xml_7.txt", "Use of Attributes", True),
+                                                      ( cnf_xml_dict, "FILES\\XML_Files\\xml_8.txt", "Combine Everything", True),
                                                      ] )
-def test_CYK_XML( dictionary, string, test_type, result ):
+def test_CYK_XML( dictionary, file, test_type, result ):
     """Tests the xml gramamr with some inputs"""
+    string = input_collector( file )
     letters = list( string )
 
     assert ( cyk_parser( dictionary, letters ) == result )
-    print( f"Test #1 ( CYK PARSING XML ) | Test Type: [{test_type}] | String: {string} | Result: {result} | PASSED")
+    print( f"Test #1 ( CYK PARSING XML ) | Test Type: [{test_type}] | File: {file} | Result: {result} | PASSED")
     print( "--------------------------------------------------------------------------------------------------------------------------------------------------------------\n" )

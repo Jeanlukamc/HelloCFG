@@ -1,5 +1,3 @@
-<TopLayer id="501">
-	<SecondLayer test="8">
-		Test 1 &lt; Test 2  
-	</SecondLayer>
-</TopLayer>
+<CustomTag>
+	Testing Letters and 12345 
+</CustomTag>
