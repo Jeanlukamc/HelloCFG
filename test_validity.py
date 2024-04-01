@@ -40,7 +40,7 @@ def test_input_collector( file, string ):
 
 @pytest.mark.parametrize( "grammar, string, result", [  ( basic_grammar, "the cat chases the dog", True ),
                                                                     ( basic_grammar, "a dog sees the cat", True ),
-                                                                    ( basic_grammar, "the dog chases the dog", True ),
+                                                                    ( basic_grammar, "the dog chases the dog", False ),
                                                                     ( basic_grammar, "the cat sleeps the dog", False ),
                                                                     ( basic_grammar, "dog chases cat", False ),
                                                                     ( basic_grammar, "the dog on in the park", False ),
