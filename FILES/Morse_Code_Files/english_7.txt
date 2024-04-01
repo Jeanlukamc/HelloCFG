@@ -1,0 +1,22 @@
+B <EQUALS> 0
+<FOR> A <IN> <RANGE>(3):
+{
+	<SWITCH> ( A ):
+	{
+		<CASE> (1):
+		{
+			B <EQUALS> A <ADD> 1
+			<BREAK>
+		}
+		<CASE> 2:
+		{
+			B <EQUALS> A <ADD> 2
+			<BREAK>
+		}
+		<DEFAULT>:
+		{
+			B <EQUALS> A
+			<BREAK>
+		}
+	}
+}
