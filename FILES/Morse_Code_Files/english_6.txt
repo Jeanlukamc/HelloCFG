@@ -1,9 +1,9 @@
-<DEF> _F1 ( ):
+<FOR> _I <IN> <RANGE> (0,6,1):
 {
-	VAR <EQUALS> 4
+	<IF> _I <MOD> 2 <EQUALS><EQUALS> 0:
+	{
+		S <EQUALS> _I
+		<PRINT>(S)
+	}
+	<PRINT>(S)
 }
-
-<DEF> _F2 ( P1, P2<EQUALS>"YES", P3<EQUALS>55 ):
-{
-	<RETURN> P2, VAR <ADD> 5
-} 
